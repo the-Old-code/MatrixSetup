@@ -1,0 +1,17 @@
+﻿<Window x:Class="Installer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Installer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="next1_btn" HorizontalAlignment="Left" Margin="676,379,0,0" VerticalAlignment="Top" Height="45" Width="114" Click="Button_Click" FontSize="22" FontWeight="Normal">
+            <Button Content="Next" Height="33" Width="58"/>
+        </Button>
+        <Button x:Name="selectfile_btn" Content="Browse" HorizontalAlignment="Left" Margin="508,192,0,0" VerticalAlignment="Top" Height="25" Width="114" Click="selectfile_btn_Click"/>
+        <TextBox x:Name="selectfile_txtbox" HorizontalAlignment="Left" Margin="89,192,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="384" Height="25"/>
+
+    </Grid>
+</Window>
