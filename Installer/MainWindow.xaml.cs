@@ -49,7 +49,15 @@ namespace Installer
             System.Diagnostics.Process TestProcess = new System.Diagnostics.Process();
             
             TestProcess.StartInfo.Verb = "runas";
-            TestProcess = System.Diagnostics.Process.Start("", "");
+            //TestProcess = System.Diagnostics.Process.Start("notepad.exe", "");
+            TestProcess = System.Diagnostics.Process.Start("C:\\Users\\user\\source\\repos\\Installer\\Installer\\resfiles\\jre-8u321-windows-x64.exe", "INSTALLCFG=C:\\Users\\user\\source\\repos\\Installer\\Installer\\resfiles\\config.txt");
+        }
+
+        private void btn_javainstall_Click(object sender, RoutedEventArgs e)
+        {
+            Java javainastall = new Java();
+            if (txtbox_javapath.Text != String.Empty) javainastall.Path = txtbox_javapath.Text;
+            javainastall.InstallJava();
         }
     }
 }

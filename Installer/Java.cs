@@ -30,7 +30,7 @@ namespace Installer
                 System.Diagnostics.Process JavaProcess = new System.Diagnostics.Process();
                 JavaProcess.StartInfo.FileName = path;
                 JavaProcess.StartInfo.Verb = "runas";
-                JavaProcess.Start();
+                JavaProcess = System.Diagnostics.Process.Start("C:\\Users\\user\\source\\repos\\Installer\\Installer\\resfiles\\jre-8u321-windows-x64.exe", "INSTALLCFG=C:\\Users\\user\\source\\repos\\Installer\\Installer\\resfiles\\config.txt");
             }
             
             else MessageBox.Show("Нет установочного файла Java!");
