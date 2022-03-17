@@ -28,20 +28,31 @@ namespace Installer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Test");
+            
         }
 
         private void selectfile_btn_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.FolderBrowserDialog folderDialog = new System.Windows.Forms.FolderBrowserDialog();
-            folderDialog.ShowNewFolderButton = false;
+            folderDialog.ShowNewFolderButton = false;//for java install use https://docs.oracle.com/javase/8/docs/technotes/guides/install/windows_jdk_install.html#CHDHHBDD 
+            //https://stackoverflow.com/questions/28043588/installing%20-jdk-8-and-jre-8-silently-on-a-windows-machine-through-command-line
+            //https://qastack.ru/programming/133379/elevating-process-privilege-programmatically
+
             folderDialog.SelectedPath = System.AppDomain.CurrentDomain.BaseDirectory;
             System.Windows.Forms.DialogResult result = folderDialog.ShowDialog();
             
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                selectfile_txtbox.Text = folderDialog.SelectedPath;
+                txtbox_javapath.Text = folderDialog.SelectedPath;
             }
+        }
+
+        private void btn_test_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process TestProcess = new System.Diagnostics.Process();
+            
+            TestProcess.StartInfo.Verb = "runas";
+            TestProcess = System.Diagnostics.Process.Start("", "");
         }
     }
 }
