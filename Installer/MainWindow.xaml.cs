@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Diagnostics;
 
 namespace Installer
 {
@@ -46,11 +47,19 @@ namespace Installer
 
         private void btn_test_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process TestProcess = new System.Diagnostics.Process();
-            
-            TestProcess.StartInfo.Verb = "runas";
-            //TestProcess = System.Diagnostics.Process.Start("notepad.exe", "");
-            TestProcess = System.Diagnostics.Process.Start("C:\\Users\\user\\source\\repos\\Installer\\Installer\\resfiles\\jre-8u321-windows-x64.exe", "INSTALLCFG=C:\\Users\\user\\source\\repos\\Installer\\Installer\\resfiles\\config.txt");
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+
+            cmd.StandardInput.WriteLine("test");
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            cmd.WaitForExit();
+            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
         }
 
         private void btn_javainstall_Click(object sender, RoutedEventArgs e)
