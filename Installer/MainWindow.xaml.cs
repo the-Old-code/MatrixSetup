@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Installer
 {
@@ -55,7 +56,7 @@ namespace Installer
             cmd.StartInfo.UseShellExecute = false;
             cmd.Start();
 
-            cmd.StandardInput.WriteLine("test");
+            cmd.StandardInput.WriteLine("cd " + System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location + "\n mkdir newfolder"));//+ "\ncd ..\\..\\..\\..\ncd resfiles\n"
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
             cmd.WaitForExit();
@@ -67,6 +68,11 @@ namespace Installer
             Java javainastall = new Java();
             if (txtbox_javapath.Text != String.Empty) javainastall.Path = txtbox_javapath.Text;
             javainastall.InstallJava();
+        }
+
+        private void showtest_btn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
         }
     }
 }
