@@ -48,19 +48,7 @@ namespace Installer
 
         private void btn_test_Click(object sender, RoutedEventArgs e)
         {
-            Process cmd = new Process();
-            cmd.StartInfo.FileName = "cmd.exe";
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;
-            cmd.StartInfo.UseShellExecute = false;
-            cmd.Start();
-
-            cmd.StandardInput.WriteLine("cd " + System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location + "\n mkdir newfolder"));//+ "\ncd ..\\..\\..\\..\ncd resfiles\n"
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.Close();
-            cmd.WaitForExit();
-            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+            cmdJava(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
         }
 
         private void btn_javainstall_Click(object sender, RoutedEventArgs e)
@@ -73,6 +61,48 @@ namespace Installer
         private void showtest_btn_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+        }
+
+        private void cmdJava(string path) 
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.Verb = "runas";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+
+            cmd.StandardInput.WriteLine("pushd " + path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\njre-8u321-windows-x64.exe INSTALLCFG=\"%cd%\\config.cfg\"");
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            cmd.WaitForExit();
+            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+        }
+
+        private void cmdNeo4j(string path)
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.Verb = "runas";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+
+            cmd.StandardInput.WriteLine("pushd " + path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\ncd neo4j-community-3.2.1\ncd bin\nneo4j install-service\nneo4j start");
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            cmd.WaitForExit();
+            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+            
+        }
+
+        private void btn_testNeo4j_Click(object sender, RoutedEventArgs e)
+        {
+            cmdNeo4j(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
         }
     }
 }

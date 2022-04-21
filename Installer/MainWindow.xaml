@@ -10,13 +10,13 @@
         <Button x:Name="next1_btn" HorizontalAlignment="Left" Margin="661,360,0,0" VerticalAlignment="Top" Height="45" Width="114" Click="Button_Click" FontSize="22" FontWeight="Normal">
             <Button Content="Next" Height="33" Width="58"/>
         </Button>
-        <Button x:Name="btn_browseinstalljava" Content="Browse" HorizontalAlignment="Left" Margin="508,192,0,0" VerticalAlignment="Top" Height="25" Width="114" Click="selectfile_btn_Click"/>
+        <Button x:Name="btn_browseinstalljava" Content="Указать файл" HorizontalAlignment="Left" Margin="508,192,0,0" VerticalAlignment="Top" Height="25" Width="114" Click="selectfile_btn_Click"/>
         <TextBox x:Name="txtbox_javapath" HorizontalAlignment="Left" Margin="89,192,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="384" Height="25"/>
-        <TextBlock HorizontalAlignment="Left" Margin="89,147,0,0" Text="Java" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="29"/>
-        <Button x:Name="btn_javainstall" Content="Установить" HorizontalAlignment="Left" Margin="89,251,0,0" VerticalAlignment="Top" Click="btn_javainstall_Click"/>
-        <TextBlock HorizontalAlignment="Left" Margin="89,222,0,0" Text="если не указывать путь, то Java по умолчанию установится в Program Files" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="btn_test" Content="test" HorizontalAlignment="Left" Margin="281,346,0,0" VerticalAlignment="Top" Click="btn_test_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="89,23,0,0" Text="Установка Java" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="278" FontSize="40"/>
+        <TextBlock HorizontalAlignment="Left" Margin="89,222,0,0" Text="если не указывать путь, то Java по умолчанию установится в Program Files" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="17"/>
+        <Button x:Name="btn_test" Content="test_installJava" HorizontalAlignment="Left" Margin="89,259,0,0" VerticalAlignment="Top" Click="btn_test_Click" Height="31" Width="100" FontSize="14"/>
         <Button x:Name="showtest_btn" Content="show current directory" HorizontalAlignment="Left" Margin="244,100,0,0" VerticalAlignment="Top" Click="showtest_btn_Click"/>
+        <Button x:Name="btn_testNeo4j" Content="test install Neo4j" HorizontalAlignment="Left" Margin="88,322,0,0" VerticalAlignment="Top" Height="31" Width="111" FontSize="14" Click="btn_testNeo4j_Click"/>
 
     </Grid>
 </Window>
