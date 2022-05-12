@@ -58,12 +58,8 @@ namespace Installer
             javainastall.InstallJava();
         }
 
-        private void showtest_btn_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
-        }
 
-        private void cmdJava(string path) 
+        private void cmdJava(string path)//установка Java через cmd
         {
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
@@ -81,7 +77,7 @@ namespace Installer
             Console.WriteLine(cmd.StandardOutput.ReadToEnd());
         }
 
-        private void cmdNeo4j(string path)
+        private void cmdNeo4j(string path)// установка Neo4j через cmd
         {
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";

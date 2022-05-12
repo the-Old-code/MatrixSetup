@@ -5,18 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Installer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize" HorizontalAlignment="Stretch" MinWidth="800" MinHeight="450">
+    <Grid Margin="0,0,0,0
+          " RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform X="4"/>
+            </TransformGroup>
+        </Grid.RenderTransform>
         <Button x:Name="next1_btn" HorizontalAlignment="Left" Margin="661,360,0,0" VerticalAlignment="Top" Height="45" Width="114" Click="Button_Click" FontSize="22" FontWeight="Normal">
             <Button Content="Next" Height="33" Width="58"/>
         </Button>
-        <Button x:Name="btn_browseinstalljava" Content="Указать файл" HorizontalAlignment="Left" Margin="508,192,0,0" VerticalAlignment="Top" Height="25" Width="114" Click="selectfile_btn_Click"/>
-        <TextBox x:Name="txtbox_javapath" HorizontalAlignment="Left" Margin="89,192,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="384" Height="25"/>
         <TextBlock HorizontalAlignment="Left" Margin="89,23,0,0" Text="Установка Java" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="278" FontSize="40"/>
-        <TextBlock HorizontalAlignment="Left" Margin="89,222,0,0" Text="если не указывать путь, то Java по умолчанию установится в Program Files" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="17"/>
-        <Button x:Name="btn_test" Content="test_installJava" HorizontalAlignment="Left" Margin="89,259,0,0" VerticalAlignment="Top" Click="btn_test_Click" Height="31" Width="100" FontSize="14"/>
-        <Button x:Name="showtest_btn" Content="show current directory" HorizontalAlignment="Left" Margin="244,100,0,0" VerticalAlignment="Top" Click="showtest_btn_Click"/>
-        <Button x:Name="btn_testNeo4j" Content="test install Neo4j" HorizontalAlignment="Left" Margin="88,322,0,0" VerticalAlignment="Top" Height="31" Width="111" FontSize="14" Click="btn_testNeo4j_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="89,222,0,0" Text="Если не указывать путь, то Java по умолчанию установится в C:\Program Files" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="17"/>
+        <Button x:Name="btn_test" Content="test_installJava" HorizontalAlignment="Left" Margin="90,259,0,0" VerticalAlignment="Top" Click="btn_test_Click" Height="31" Width="100" FontSize="15"/>
+        <Button x:Name="btn_testNeo4j" Content="test install Neo4j" HorizontalAlignment="Left" Margin="88,322,0,0" VerticalAlignment="Top" Height="31" Width="111" FontSize="15" Click="btn_testNeo4j_Click"/>
+        <DockPanel LastChildFill="False" Margin="90,175,100,0" Height="30" VerticalAlignment="Top">
+            <Button x:Name="btn_browseinstalljava" Content="Указать файл" Click="selectfile_btn_Click" Width="100" FontSize=""/>
+            <TextBox x:Name="txtbox_javapath" TextWrapping="Wrap" DockPanel.Dock="Right" Width="486"/>
+        </DockPanel>
 
     </Grid>
 </Window>
