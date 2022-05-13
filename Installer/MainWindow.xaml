@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Installer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize" HorizontalAlignment="Stretch" MinWidth="800" MinHeight="450">
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize" HorizontalAlignment="Stretch" MinWidth="800" MinHeight="450" Background="White">
     <Grid Margin="0,0,0,0
           " RenderTransformOrigin="0.5,0.5">
         <Grid.RenderTransform>
@@ -19,14 +19,16 @@
         <Button x:Name="next1_btn" HorizontalAlignment="Left" Margin="661,360,0,0" VerticalAlignment="Top" Height="45" Width="114" Click="Button_Click" FontSize="22" FontWeight="Normal">
             <Button Content="Next" Height="33" Width="58"/>
         </Button>
-        <TextBlock HorizontalAlignment="Left" Margin="89,23,0,0" Text="Установка Java" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="278" FontSize="40"/>
-        <TextBlock HorizontalAlignment="Left" Margin="89,222,0,0" Text="Если не указывать путь, то Java по умолчанию установится в C:\Program Files" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="17"/>
-        <Button x:Name="btn_test" Content="test_installJava" HorizontalAlignment="Left" Margin="90,259,0,0" VerticalAlignment="Top" Click="btn_test_Click" Height="31" Width="100" FontSize="15"/>
-        <Button x:Name="btn_testNeo4j" Content="test install Neo4j" HorizontalAlignment="Left" Margin="88,322,0,0" VerticalAlignment="Top" Height="31" Width="111" FontSize="15" Click="btn_testNeo4j_Click"/>
+        <TextBlock x:Name="txt_JavaInstall" HorizontalAlignment="Left" Margin="89,23,0,0" Text="Установка Java и Neo4j" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="427" FontSize="40"/>
+        <TextBlock x:Name="txt_JavaDescription" HorizontalAlignment="Left" Margin="89,222,0,0" Text="Если не указывать путь, то Java по умолчанию установится в C:\Program Files" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="17"/>
+        <Button x:Name="btn_test" Content="Установить Java" HorizontalAlignment="Left" Margin="90,264,0,0" VerticalAlignment="Top" Click="btn_test_Click" Height="30" Width="146" FontSize="15"/>
+        <Button x:Name="btn_testNeo4j" Content="test install Neo4j" HorizontalAlignment="Left" Margin="90,322,0,0" VerticalAlignment="Top" Height="31" Width="109" FontSize="15" Click="btn_testNeo4j_Click" Visibility="Hidden" d:IsHidden="True"/>
+        <TextBlock x:Name="txt_Neo4jDescription" HorizontalAlignment="Left" Margin="89,312,0,0" Text="После установки Java, Neo4j установится автоматически" TextWrapping="Wrap" VerticalAlignment="Top" Width="533" Height="26" FontSize="17"/>
         <DockPanel LastChildFill="False" Margin="90,175,100,0" Height="30" VerticalAlignment="Top">
-            <Button x:Name="btn_browseinstalljava" Content="Указать файл" Click="selectfile_btn_Click" Width="100" FontSize=""/>
+            <Button x:Name="btn_browseinstalljava" Content="Указать файл" Click="selectfile_btn_Click" Width="100" FontSize="15"/>
             <TextBox x:Name="txtbox_javapath" TextWrapping="Wrap" DockPanel.Dock="Right" Width="486"/>
         </DockPanel>
 
+        <Frame x:Name="Main"/>
     </Grid>
 </Window>
