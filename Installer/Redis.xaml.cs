@@ -51,7 +51,8 @@ namespace Installer
 
         private void next2_btn_Click(object sender, RoutedEventArgs e)
         {
-            Redis1.Content = new Erlang();
+            Redis1.Content = new IsRabbitHere();
+            
         }
     }
 }

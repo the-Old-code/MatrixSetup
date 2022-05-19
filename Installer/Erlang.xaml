@@ -15,7 +15,6 @@
             <Button Content="Next" Height="33" Width="58"/>
         </Button>
         <Button x:Name="btn_ErlangInstall" Content="Установить Erlang" HorizontalAlignment="Left" Margin="89,265,0,0" VerticalAlignment="Top" Width="151" Height="45" FontSize="17" Click="btn_ErlangInstall_Click"/>
-
-        <Frame x:Name="Erl"/>
+        <Frame x:Name="Erl" d:IsHidden="True"/>
     </Grid>
 </Page>

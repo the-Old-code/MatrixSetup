@@ -30,6 +30,7 @@ namespace Installer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
             Main.Content = new Redis();
         }
 
@@ -52,12 +53,7 @@ namespace Installer
             //cmdNeo4j(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
         }
 
-        private void btn_javainstall_Click(object sender, RoutedEventArgs e)// удалить
-        {
-            Java javainastall = new Java();
-            if (txtbox_javapath.Text != String.Empty) javainastall.Path = txtbox_javapath.Text;
-            javainastall.InstallJava();
-        }
+        
 
         private void cmd(string path, string arg)//установка через командую строку
         {
