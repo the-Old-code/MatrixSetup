@@ -49,13 +49,14 @@ namespace Installer
 
         private void btn_test_Click(object sender, RoutedEventArgs e)
         {
-            cmd(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "jre - 8u321 - windows - x64.exe INSTALLCFG =\"%cd%\\config.cfg\"");
-            //cmdNeo4j(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+            //cmd(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "jre - 8u321 - windows - x64.exe INSTALLCFG =\"%cd%\\config.cfg\"");
+            InstallUnit Java = new InstallUnit("jre - 8u321 - windows - x64.exe INSTALLCFG =\"%cd%\\config.cfg\"");//установка Java через класс InstallUnit
+            Java.CmdInstall();
         }
 
         
 
-        private void cmd(string path, string arg)//установка через командую строку
+        /*private void cmd(string path, string arg)//установка через командую строку
         {
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
@@ -108,11 +109,13 @@ namespace Installer
             cmd.WaitForExit();
             Console.WriteLine(cmd.StandardOutput.ReadToEnd());
             
-        }
+        }*/
 
         private void btn_testNeo4j_Click(object sender, RoutedEventArgs e)
         {
-            cmd(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "cd neo4j - community - 3.2.1\ncd bin\nneo4j install - service\nneo4j start");
+            //cmd(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "cd neo4j - community - 3.2.1\ncd bin\nneo4j install - service\nneo4j start");
+            InstallUnit Neo4j = new InstallUnit("cd neo4j - community - 3.2.1\ncd bin\nneo4j install - service\nneo4j start");//установка Neo4j через класс InstallUnit
+            Neo4j.CmdInstall();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Installer
         {
             InitializeComponent();
         }
-
+        /*
         private void cmd(string path, string arg)//установка через командую строку
         {
             Process cmd = new Process();
@@ -45,10 +45,13 @@ namespace Installer
             cmd.StandardInput.Close();
             cmd.WaitForExit();
             Console.WriteLine(cmd.StandardOutput.ReadToEnd());
-        }
+        }*/
             private void btn_ErlangInstall_Click(object sender, RoutedEventArgs e)
         {
-            cmd(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "start otp_win64_24.3.4.exe");
+            //cmd(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "start otp_win64_24.3.4.exe");
+            InstallUnit Erlang = new InstallUnit("start otp_win64_24.3.4.exe");//установка Erlang через класс InstallUnit
+            Erlang.CmdInstall();
+
         }
 
         private void next3_btn_Click(object sender, RoutedEventArgs e)

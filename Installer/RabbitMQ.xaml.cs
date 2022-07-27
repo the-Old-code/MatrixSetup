@@ -28,27 +28,11 @@ namespace Installer
             InitializeComponent();
         }
 
-        private void cmd(string path, string arg)//установка через командую строку
-        {
-            Process cmd = new Process();
-            cmd.StartInfo.FileName = "cmd.exe";
-            cmd.StartInfo.Verb = "runas";
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;
-            cmd.StartInfo.UseShellExecute = false;
-            cmd.Start();
-
-            cmd.StandardInput.WriteLine("pushd " + path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\n" + arg);
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.Close();
-            cmd.WaitForExit();
-            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
-        }
-
         private void btn_RabbitInstall_Click(object sender, RoutedEventArgs e)
         {
-            cmd(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "start rabbitmq-server-3.10.1.exe");
+            //cmd(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "start rabbitmq-server-3.10.1.exe");//старая установка через функцию cmd
+            InstallUnit Rabbit = new InstallUnit("start rabbitmq-server-3.10.1.exe");//установка Rabbit через класс InstallUnit
+            Rabbit.CmdInstall();
         }
     }
 }

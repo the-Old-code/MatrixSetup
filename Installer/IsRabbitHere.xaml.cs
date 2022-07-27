@@ -22,5 +22,15 @@ namespace Installer
         {
             InitializeComponent();
         }
+
+        private void btn_Have_Rabbit_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void btn_No_Rabbit_Click(object sender, RoutedEventArgs e)
+        {
+            Redis1.Content = new RabbitMQ();
+        }
     }
 }

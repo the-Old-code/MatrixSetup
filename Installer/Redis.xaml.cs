@@ -27,7 +27,7 @@ namespace Installer
         {
             InitializeComponent();
         }
-        private void cmd(string path, string arg)//установка через командую строку
+        /*private void cmd(string path, string arg)//установка через командую строку
         {
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
@@ -43,10 +43,13 @@ namespace Installer
             cmd.StandardInput.Close();
             cmd.WaitForExit();
             Console.WriteLine(cmd.StandardOutput.ReadToEnd());
-        }
+        }*/
         private void btn_RedisInstall_Click(object sender, RoutedEventArgs e)
         {
-            cmd(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "cd Redis\nredis-server --service-install\nredis-server --service-start");
+            //cmd(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "cd Redis\nredis-server --service-install\nredis-server --service-start");
+            InstallUnit Redis = new InstallUnit("cd Redis\nredis-server --service-install\nredis-server --service-start");//установка Redis через класс InstallUnit
+            Redis.CmdInstall();
+
         }
 
         private void next2_btn_Click(object sender, RoutedEventArgs e)
