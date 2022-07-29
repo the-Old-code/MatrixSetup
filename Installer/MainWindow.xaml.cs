@@ -117,5 +117,10 @@ namespace Installer
             InstallUnit Neo4j = new InstallUnit("cd neo4j - community - 3.2.1\ncd bin\nneo4j install - service\nneo4j start");//установка Neo4j через класс InstallUnit
             Neo4j.CmdInstall();
         }
+
+        private void btn_location_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+        }
     }
 }

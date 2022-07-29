@@ -33,5 +33,6 @@
             <TextBox x:Name="txtbox_javapath" TextWrapping="Wrap" DockPanel.Dock="Right" Width="486"/>
         </DockPanel>
         <Frame x:Name="Main" d:IsHidden="True" Grid.ColumnSpan="2"/>
+        <Button x:Name="btn_location" Content="Местопложение" Grid.Column="1" HorizontalAlignment="Left" Margin="541,279,0,0" VerticalAlignment="Top" Width="103" Click="btn_location_Click"/>
     </Grid>
 </Window>

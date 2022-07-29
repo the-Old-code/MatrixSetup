@@ -20,18 +20,49 @@ namespace Installer
 {
     public class InstallUnit
     {
-        private string path;
-        private string arg;
-        InstallUnit() { }
+        private string path;//путь из коготорого запускаются установочные файлы
+        private string arg;//часть того, что вводится в командную строку после ее открытия
+        private string filename;//имя запускаемого файла, может быть cmd или установочный exe
+        private string startarg;//аргументы при запуске файла установки или cmd
+        private bool write;//true - вводит нужные тектовые данные, false - не вводит
+        private string writearg;//все текстовые данные, которые вводятся 
+        
         public InstallUnit(string arg1)//конструктор с аргументом для командной строки, путь где находятся файлы это одна директория с установщиком
         {
             Path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             Arg = arg1;
+            filename = "cmd.exe";
+            startarg = "";          
+            write = true;
+            writearg = "pushd " + Path + "\ncd resfiles\n" + Arg;//was writearg = "pushd " + Path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\n" + Arg;
         }
-        public InstallUnit(string path1,string arg1)//конструктор с путем, где находятся файлы и аргументом для командной строки
+        public InstallUnit(string arg1,string filename1, string startarg1) // startarg это аргументы запуска
         {
-            Path = path1;
+            Path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             Arg = arg1;
+            filename = filename1;
+            startarg = startarg1;            
+            write = true;
+            writearg = "pushd " + Path + "\ncd resfiles\n" + Arg;//was writearg = "pushd " + Path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\n" + Arg;
+        }
+        
+        public InstallUnit(string arg1, string filename1, string startarg1, bool write1)
+        {
+            Path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            Arg = arg1;
+            filename = filename1;
+            startarg = startarg1;
+            write = write1;
+            writearg = "pushd " + Path + "\ncd resfiles\n" + Arg;//was writearg = "pushd " + Path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\n" + Arg;
+        }
+        public InstallUnit(string arg1, string filename1, string startarg1, bool write1,string writearg1)
+        {
+            Path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            Arg = arg1;
+            filename = filename1;
+            startarg = startarg1;
+            write = write1;
+            writearg = writearg1;
         }
         public string Path//путь к директории, в которой хранятся установочные файлы
         {
@@ -61,19 +92,30 @@ namespace Installer
         public virtual void CmdInstall()//установка через командую строку
         {
             Process cmd = new Process();
-            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.FileName = filename;//изменяемое// обычно это "cmd.exe"
             cmd.StartInfo.Verb = "runas";//права администратора
+            cmd.StartInfo.Arguments = startarg;//изменяемое// обычно ""
             cmd.StartInfo.RedirectStandardInput = true;
             cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;//выполнение без открытия окна
+            cmd.StartInfo.CreateNoWindow = true;//выполнение без открытия окна // обычно true
             cmd.StartInfo.UseShellExecute = false;
             cmd.Start();
+            
+            if (write == true) 
+            {
+                cmd.StandardInput.WriteLine(writearg);//переход в директорию resfiles и выполенение аргумента для командной строки
+                cmd.StandardInput.Flush();
+                cmd.StandardInput.Close();
+                cmd.WaitForExit();
+                Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+            }
+            //Process Currentprocess = Process.GetCurrentProcess();//отладочный вывод
+            //Debug.WriteLine(Currentprocess.ToString() + "нужный процесс");//отладочный вывод
+            
+            cmd.Close();
 
-            cmd.StandardInput.WriteLine("pushd " + path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\n" + arg);//переход в директорию resfiles и выполенение аргумента для командной строки
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.Close();
-            cmd.WaitForExit();
-            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+            
+
         }
     }
     class JavaInstallUnit : InstallUnit //версия класса InstallUnit для установки Java
@@ -125,4 +167,41 @@ namespace Installer
             javaconfig.Close();
         }
     }
+    public class RabbitInstallUnit : InstallUnit
+    {
+        private string Filename;
+        public RabbitInstallUnit(string arg1, string filename) : base(arg1) { Filename = filename; }
+
+        public override void CmdInstall()//установка через командую строку
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = Filename;
+            cmd.StartInfo.Verb = "runas";//права администратора
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = false;//выполнение без открытия окна
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+            cmd.Close();
+        }
+        public void RabbitPrompt() 
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.Arguments = "/k cd /d C:\\Program Files\\RabbitMQ Server\\rabbitmq_server-3.10.1\\sbin";
+            cmd.StartInfo.Verb = "runas";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = false;//was true
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+
+            cmd.StandardInput.WriteLine("rabbitmq-plugins enable rabbitmq_management");
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            cmd.WaitForExit();
+            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+        }
+    }
+
 }
