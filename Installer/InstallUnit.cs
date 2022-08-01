@@ -20,50 +20,55 @@ namespace Installer
 {
     public class InstallUnit
     {
-        private string path;//путь из коготорого запускаются установочные файлы
-        private string arg;//часть того, что вводится в командную строку после ее открытия
+        private string path;//путь из коготорого запускаются установочные файлы // для запуска из cmd
+        private string arg;//часть того, что вводится в командную строку после ее открытия // для запуска из cmd
         private string filename;//имя запускаемого файла, может быть cmd или установочный exe
-        private string startarg;//аргументы при запуске файла установки или cmd
-        private bool write;//true - вводит нужные тектовые данные, false - не вводит
+        private string startarg;//аргументы при запуске файла 
+        private bool write;//true - вводит нужные текстовые данные(обычно команды) в запущенной программе(обычно в cmd), false - не вводит
         private string writearg;//все текстовые данные, которые вводятся 
         
-        public InstallUnit(string arg1)//конструктор с аргументом для командной строки, путь где находятся файлы это одна директория с установщиком
+        public InstallUnit()
         {
-            Path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            Path =  Directory.GetCurrentDirectory();
+        }
+        public InstallUnit(string arg1) : this()//конструктор с аргументом для командной строки, путь где находятся файлы это одна директория с установщиком
+        {
+            //Path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             Arg = arg1;
             filename = "cmd.exe";
-            startarg = "";          
+            startarg = "";
             write = true;
-            writearg = "pushd " + Path + "\ncd resfiles\n" + Arg;//was writearg = "pushd " + Path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\n" + Arg;
+            writearg = "pushd " + Path + "\ncd resfiles\n" + Arg;
         }
-        public InstallUnit(string arg1,string filename1, string startarg1) // startarg это аргументы запуска
+        public InstallUnit(string arg1,string filename1, string startarg1) : this(arg1) // startarg это аргументы запуска
         {
-            Path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            Arg = arg1;
+            //Path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            //Arg = arg1;
             filename = filename1;
-            startarg = startarg1;            
+            startarg = startarg1;
             write = true;
             writearg = "pushd " + Path + "\ncd resfiles\n" + Arg;//was writearg = "pushd " + Path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\n" + Arg;
         }
         
-        public InstallUnit(string arg1, string filename1, string startarg1, bool write1)
+        public InstallUnit(string arg1, string filename1, string startarg1, bool write1) : this(arg1, filename1, startarg1)
         {
-            Path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            Arg = arg1;
-            filename = filename1;
-            startarg = startarg1;
-            write = write1;
+            //Path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            //Arg = arg1;
+            //filename = filename1;
+            //startarg = startarg1;
+            write = write1;//при write == false теряют смысл в существовании поля writearg Path Arg 
             writearg = "pushd " + Path + "\ncd resfiles\n" + Arg;//was writearg = "pushd " + Path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\n" + Arg;
         }
-        public InstallUnit(string arg1, string filename1, string startarg1, bool write1,string writearg1)
+        public InstallUnit(string arg1, string filename1, string startarg1, bool write1,string writearg1) : this(arg1, filename1, startarg1, write1)
         {
-            Path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            Arg = arg1;
-            filename = filename1;
-            startarg = startarg1;
-            write = write1;
+            //Path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            //Arg = arg1;
+            //filename = filename1;
+            //startarg = startarg1;
+            //write = write1;
             writearg = writearg1;
         }
+        
         public string Path//путь к директории, в которой хранятся установочные файлы
         {
             get 
@@ -103,7 +108,7 @@ namespace Installer
             
             if (write == true) 
             {
-                cmd.StandardInput.WriteLine(writearg);//переход в директорию resfiles и выполенение аргумента для командной строки
+                cmd.StandardInput.WriteLine(writearg);//переход в директорию resfiles и ввод комманд в командную строку или другую программу
                 cmd.StandardInput.Flush();
                 cmd.StandardInput.Close();
                 cmd.WaitForExit();
@@ -160,7 +165,7 @@ namespace Installer
         }
         private void JavaConfigUpdate() 
         {
-            string newpath = (System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location).Remove(24)+ "\\resfiles");
+            string newpath = (System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\resfiles");//где config.txt 
             File.WriteAllText(newpath, String.Empty);
             StreamWriter javaconfig = new StreamWriter(newpath);
             javaconfig.WriteLine("INSTALLDIR="+JavaPath+"\nINSTALL_SILENT = Enable\nREBOOT = Disable");//задание нового установочного пути

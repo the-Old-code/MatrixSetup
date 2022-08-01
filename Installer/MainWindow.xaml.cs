@@ -120,7 +120,8 @@ namespace Installer
 
         private void btn_location_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+            //MessageBox.Show(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+            MessageBox.Show(Directory.GetCurrentDirectory());
         }
     }
 }

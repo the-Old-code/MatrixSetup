@@ -13,6 +13,7 @@
 
         <TextBlock x:Name="txt_RabbitInstall" HorizontalAlignment="Left" Margin="89,23,0,0" Text="Установка RabbitMQ" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="386" FontSize="40"/>
         <TextBlock x:Name="txt_RabbitDescription" HorizontalAlignment="Left" Margin="89,222,0,0" Text="Нажимайте Next, ничего не меняйте" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="17"/>
+        <Button x:Name="testrabbitprompt_btn" Content="Rabbit Prompt" Margin="528,84,115,217" Click="testrabbitprompt_btn_Click"/>
         <Button x:Name="next4_btn" HorizontalAlignment="Left" Margin="661,360,0,0" VerticalAlignment="Top" Height="45" Width="114" FontSize="22" FontWeight="Normal" Click="next4_btn_Click_1">
             <Button Content="Next" Height="33" Width="58"/>
         </Button>

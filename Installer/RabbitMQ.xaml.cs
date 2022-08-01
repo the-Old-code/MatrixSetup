@@ -33,11 +33,11 @@ namespace Installer
             InstallUnit Erlang = new InstallUnit("start otp_win64_24.3.4.exe /S");//установка Erlang через класс InstallUnit
             Erlang.CmdInstall();
 
-            InstallUnit Rabbit = new InstallUnit("start rabbitmq-server-3.10.1.exe", System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\resfiles\\rabbitmq-server-3.10.1.exe","");//установка Rabbit через класс InstallUnit
+            InstallUnit Rabbit = new InstallUnit("start rabbitmq-server-3.10.1.exe");//установка Rabbit через класс InstallUnit
             Rabbit.CmdInstall();
 
-            //InstallUnit RabbitPrompt = new InstallUnit("","cmd.exe", "/k cd /d C:\\Program Files\\RabbitMQ Server\\rabbitmq_server-3.10.1\\sbin",true, "rabbitmq-plugins enable rabbitmq_management");
-            //RabbitPrompt.CmdInstall();
+            InstallUnit RabbitPrompt = new InstallUnit("","cmd.exe", "",true, "cd /d C:\\Program Files\\RabbitMQ Server\\rabbitmq_server-3.10.1\\sbin\nrabbitmq-plugins enable rabbitmq_management");
+            RabbitPrompt.CmdInstall();
         }
 
         
@@ -55,6 +55,17 @@ namespace Installer
             }
         }
 
-        
+        private void testrabbitprompt_btn_Click(object sender, RoutedEventArgs e)
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";//изменяемое// обычно это "cmd.exe"
+            cmd.StartInfo.Verb = "runas";//права администратора
+            cmd.StartInfo.Arguments = "";//изменяемое// обычно ""
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = false;//выполнение без открытия окна // обычно true
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+        }
     }
 }
