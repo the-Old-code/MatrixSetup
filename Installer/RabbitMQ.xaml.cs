@@ -36,7 +36,7 @@ namespace Installer
             InstallUnit Rabbit = new InstallUnit("start rabbitmq-server-3.10.1.exe");//установка Rabbit через класс InstallUnit
             Rabbit.CmdInstall();
 
-            InstallUnit RabbitPrompt = new InstallUnit("","cmd.exe", "",true, "cd /d C:\\Program Files\\RabbitMQ Server\\rabbitmq_server-3.10.1\\sbin\nrabbitmq-plugins enable rabbitmq_management");
+            InstallUnit RabbitPrompt = new InstallUnit("","cmd.exe", "",true, "pushd C:\\Program Files\\RabbitMQ Server\\rabbitmq_server-3.10.1\\sbin\nrabbitmq-plugins enable rabbitmq_management");//выполнение нужных комманд в cmd
             RabbitPrompt.CmdInstall();
         }
 
@@ -44,6 +44,7 @@ namespace Installer
 
         private void next4_btn_Click_1(object sender, RoutedEventArgs e)
         {
+            /*
             Debug.WriteLine("----------------------");
             Process[] processes = Process.GetProcesses();
             foreach (Process p in processes)
@@ -52,7 +53,9 @@ namespace Installer
                 {
                     Debug.WriteLine(p.MainWindowTitle);
                 }
-            }
+            }*/
+            InstallUnit RabbitPrompt = new InstallUnit("", "cmd.exe", "", true, "pushd C:\\Program Files\\RabbitMQ Server\\rabbitmq_server-3.10.1\\sbin\nrabbitmq-plugins enable rabbitmq_management");//выполнение нужных комманд в cmd
+            RabbitPrompt.CmdInstall();
         }
 
         private void testrabbitprompt_btn_Click(object sender, RoutedEventArgs e)

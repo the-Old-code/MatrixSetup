@@ -28,27 +28,9 @@ namespace Installer
         {
             InitializeComponent();
         }
-        /*
-        private void cmd(string path, string arg)//установка через командую строку
-        {
-            Process cmd = new Process();
-            cmd.StartInfo.FileName = "cmd.exe";
-            cmd.StartInfo.Verb = "runas";
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;
-            cmd.StartInfo.UseShellExecute = false;
-            cmd.Start();
-
-            cmd.StandardInput.WriteLine("pushd " + path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\n" + arg);
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.Close();
-            cmd.WaitForExit();
-            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
-        }*/
             private void btn_ErlangInstall_Click(object sender, RoutedEventArgs e)
             {
-                //cmd(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "start otp_win64_24.3.4.exe");
+                
                 InstallUnit Erlang = new InstallUnit("start otp_win64_24.3.4.exe /S");//установка Erlang через класс InstallUnit
                 Erlang.CmdInstall();
 
