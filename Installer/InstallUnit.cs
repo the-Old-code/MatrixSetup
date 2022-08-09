@@ -94,7 +94,7 @@ namespace Installer
             cmd.StartInfo.UseShellExecute = false;
             cmd.Start();
             
-            if (write == true) 
+            if (write == true)
             {
                 cmd.StandardInput.WriteLine(writearg);//переход в директорию resfiles и ввод комманд в командную строку или другую программу
                 cmd.StandardInput.Flush();
@@ -105,10 +105,7 @@ namespace Installer
             //Process Currentprocess = Process.GetCurrentProcess();//отладочный вывод
             //Debug.WriteLine(Currentprocess.ToString() + "нужный процесс");//отладочный вывод
             
-            cmd.Close();
-
-            
-
+            //cmd.Close();
         }
     }
 }

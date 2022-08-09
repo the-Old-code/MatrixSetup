@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Diagnostics;
 using System.Reflection;
+using System.Threading;
+using RabbitMQ.Client;
 
 namespace Installer
 {
@@ -32,12 +34,16 @@ namespace Installer
         {
             InstallUnit Erlang = new InstallUnit("start otp_win64_24.3.4.exe /S");//установка Erlang через класс InstallUnit
             Erlang.CmdInstall();
-
+            Thread.Sleep(1000);
             InstallUnit Rabbit = new InstallUnit("start rabbitmq-server-3.10.1.exe");//установка Rabbit через класс InstallUnit
             Rabbit.CmdInstall();
-
+            Thread.Sleep(10000);
             InstallUnit RabbitPrompt = new InstallUnit("","cmd.exe", "",true, "pushd C:\\Program Files\\RabbitMQ Server\\rabbitmq_server-3.10.1\\sbin\nrabbitmq-plugins enable rabbitmq_management");//выполнение нужных комманд в cmd
             RabbitPrompt.CmdInstall();
+            Thread.Sleep(10000);
+            InstallUnit RabbitPromptR = new InstallUnit("", "cmd.exe", "", true, "pushd C:\\Program Files\\RabbitMQ Server\\rabbitmq_server-3.10.1\\sbin\nrabbitmq-plugins enable rabbitmq_management");//выполнение нужных комманд в cmd
+            RabbitPromptR.CmdInstall();
+            Thread.Sleep(10000);
         }
 
         
@@ -54,21 +60,9 @@ namespace Installer
                     Debug.WriteLine(p.MainWindowTitle);
                 }
             }*/
-            InstallUnit RabbitPrompt = new InstallUnit("", "cmd.exe", "", true, "pushd C:\\Program Files\\RabbitMQ Server\\rabbitmq_server-3.10.1\\sbin\nrabbitmq-plugins enable rabbitmq_management");//выполнение нужных комманд в cmd
+            InstallUnit RabbitPrompt = new InstallUnit("", "cmd.exe", "", true, @"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin"+"\n"+ @"rabbitmq-plugins enable rabbitmq_management");//выполнение нужных комманд в cmd
             RabbitPrompt.CmdInstall();
-        }
-
-        private void testrabbitprompt_btn_Click(object sender, RoutedEventArgs e)
-        {
-            Process cmd = new Process();
-            cmd.StartInfo.FileName = "cmd.exe";//изменяемое// обычно это "cmd.exe"
-            cmd.StartInfo.Verb = "runas";//права администратора
-            cmd.StartInfo.Arguments = "";//изменяемое// обычно ""
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = false;//выполнение без открытия окна // обычно true
-            cmd.StartInfo.UseShellExecute = false;
-            cmd.Start();
+            Thread.Sleep(10000);
         }
     }
 }
