@@ -78,10 +78,8 @@ namespace Installer
             {
                 arg = value;   // устанавливаем новое значение свойства
             }
-
         }
-        
-
+     
         public virtual void CmdInstall()//установка через командую строку
         {
             Process cmd = new Process();
