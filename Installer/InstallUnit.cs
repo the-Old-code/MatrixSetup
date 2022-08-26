@@ -31,30 +31,30 @@ namespace Installer
         {
             Path =  Directory.GetCurrentDirectory();
         }
-        public InstallUnit(string arg1) : this()//конструктор с аргументом для командной строки, путь где находятся файлы это одна директория с установщиком
+        public InstallUnit(string Arg) : this()//конструктор с аргументом для командной строки, путь где находятся файлы это одна директория с установщиком
         {
-            Arg = arg1;
+            this.Arg = Arg;
             filename = "cmd.exe";
             startarg = "";
             write = true;
-            writearg = "pushd " + Path + "\ncd resfiles\n" + Arg;
+            writearg = "chcp 1251 pushd " + this.Path + "\newcd resfiles\new" + this.Arg;
         }
-        public InstallUnit(string arg1,string filename1, string startarg1) : this(arg1) // startarg это аргументы запуска
+        public InstallUnit(string Arg,string filename, string startarg) : this(Arg) // startarg это аргументы запуска
         {
-            filename = filename1;
-            startarg = startarg1;
+            this.filename = filename;
+            this.startarg = startarg;
             write = true;
-            writearg = "pushd " + Path + "\ncd resfiles\n" + Arg;//was writearg = "pushd " + Path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\n" + Arg;
+            writearg = "chcp 1251 pushd " + this.Path + "\newcd resfiles\new" + this.Arg;//was writearg = "pushd " + Path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\n" + Arg;
         }
         
-        public InstallUnit(string arg1, string filename1, string startarg1, bool write1) : this(arg1, filename1, startarg1)
+        public InstallUnit(string Arg, string filename, string startarg, bool write) : this(Arg, filename, startarg)
         {
-            write = write1;//при write == false теряют смысл в существовании поля writearg, Path, Arg 
-            writearg = "pushd " + Path + "\ncd resfiles\n" + Arg;//was writearg = "pushd " + Path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\n" + Arg;
+            this.write = write;//при write == false теряют смысл в существовании поля writearg, Path, Arg 
+            writearg = "chcp 1251 pushd " + this.Path + "\newcd resfiles\new" + this.Arg;//was writearg = "pushd " + Path + "\n cd ..\n cd ..\n cd ..\ncd resfiles\n" + Arg;
         }
-        public InstallUnit(string arg1, string filename1, string startarg1, bool write1,string writearg1) : this(arg1, filename1, startarg1, write1)
+        public InstallUnit(string Arg, string filename, string startarg, bool write,string writearg) : this(Arg, filename, startarg, write)
         {
-            writearg = writearg1;
+            this.writearg = writearg;
         }
         
         public string Path//путь к директории, в которой хранятся установочные файлы
@@ -80,21 +80,27 @@ namespace Installer
             }
         }
      
-        public virtual void CmdInstall()//установка через командую строку
+        public virtual void CmdRun()//установка через командую строку
         {
             Process cmd = new Process();
             cmd.StartInfo.FileName = filename;//изменяемое// обычно это "cmd.exe"
             cmd.StartInfo.Verb = "runas";//права администратора
-            cmd.StartInfo.Arguments = startarg;//изменяемое// обычно ""
+            cmd.StartInfo.Arguments = startarg;//изменяемое// обычно "" еще /K
             cmd.StartInfo.RedirectStandardInput = true;
             cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;//выполнение без открытия окна // обычно true
+            cmd.StartInfo.CreateNoWindow = false;//выполнение без открытия окна // обычно true
             cmd.StartInfo.UseShellExecute = false;
             cmd.Start();
             
             if (write == true)
             {
-                cmd.StandardInput.WriteLine(writearg);//переход в директорию resfiles и ввод комманд в командную строку или другую программу
+                string[] writeargSplit;
+                writeargSplit = writearg.Split("\new");
+                foreach(string arg in writeargSplit) 
+                {
+                    cmd.StandardInput.WriteLine(arg);
+                }
+                //cmd.StandardInput.WriteLine(writearg);//переход в директорию resfiles и ввод комманд в командную строку или другую программу
                 cmd.StandardInput.Flush();
                 cmd.StandardInput.Close();
                 cmd.WaitForExit();

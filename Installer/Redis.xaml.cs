@@ -31,7 +31,7 @@ namespace Installer
         private void btn_RedisInstall_Click(object sender, RoutedEventArgs e)
         {
             InstallUnit Redis = new InstallUnit("cd Redis\nredis-server --service-install\nredis-server --service-start");//установка Redis через класс InstallUnit
-            Redis.CmdInstall();
+            Redis.CmdRun();
 
         }
 

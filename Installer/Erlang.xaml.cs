@@ -32,7 +32,7 @@ namespace Installer
             {
                 
                 InstallUnit Erlang = new InstallUnit("start otp_win64_24.3.4.exe /S");//установка Erlang через класс InstallUnit
-                Erlang.CmdInstall();
+                Erlang.CmdRun();
 
             }
 

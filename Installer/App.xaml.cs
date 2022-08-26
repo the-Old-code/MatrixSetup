@@ -21,7 +21,7 @@ namespace Installer
                 if (e.Args[0] == "rbtpr")
                 {
                     InstallUnit RabbitPrompt = new InstallUnit("", "cmd.exe", "", true, "pushd C:\\Program Files\\RabbitMQ Server\\rabbitmq_server-3.10.1\\sbin\nrabbitmq-plugins enable rabbitmq_management");//выполнение нужных комманд в cmd
-                    RabbitPrompt.CmdInstall();
+                    RabbitPrompt.CmdRun();
                     Process.Start("net", "stop RabbitMQ")?.WaitForExit();
                     Process.Start("net", "start RabbitMQ")?.WaitForExit();
                     
