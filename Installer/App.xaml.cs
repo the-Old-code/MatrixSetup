@@ -27,9 +27,10 @@ namespace Installer
                     
                 }
             }*/
-            MainWindow wnd = new MainWindow();
-            wnd.Show();
-            
+            //MainWindow wnd = new MainWindow();
+            //wnd.Show();
+            RabbitMQStartPage window = new RabbitMQStartPage();
+            window.Show();
         }
 
     }
