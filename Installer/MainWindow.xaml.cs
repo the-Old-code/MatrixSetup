@@ -49,8 +49,8 @@ namespace Installer
 
         private void btn_test_Click(object sender, RoutedEventArgs e)
         {
-            InstallUnit Java = new InstallUnit("jre - 8u321 - windows - x64.exe INSTALLCFG =\"%cd%\\config.cfg\"");//установка Java через класс InstallUnit
-            Java.CmdRun();
+            //InstallUnit Java = new InstallUnit("jre - 8u321 - windows - x64.exe INSTALLCFG =\"%cd%\\config.cfg\"");//установка Java через класс InstallUnit
+            //Java.CmdRun();
         }
 
         
@@ -59,8 +59,8 @@ namespace Installer
 
         private void btn_testNeo4j_Click(object sender, RoutedEventArgs e)
         {
-            InstallUnit Neo4j = new InstallUnit("cd neo4j - community - 3.2.1\ncd bin\nneo4j install - service\nneo4j start");//установка Neo4j через класс InstallUnit
-            Neo4j.CmdRun();
+            //InstallUnit Neo4j = new InstallUnit("cd neo4j - community - 3.2.1\ncd bin\nneo4j install - service\nneo4j start");//установка Neo4j через класс InstallUnit
+            //Neo4j.CmdRun();
         }
 
         private void btn_location_Click(object sender, RoutedEventArgs e)

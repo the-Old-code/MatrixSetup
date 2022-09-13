@@ -31,26 +31,26 @@ namespace Installer
         }
         private void btn_RabbitInstall_Click(object sender, RoutedEventArgs e)
         {
-            InstallUnit Erlang = new InstallUnit("start otp_win64_24.3.4.exe /S");//установка Erlang через класс InstallUnit
-            Erlang.CmdRun();
+            //InstallUnit Erlang = new InstallUnit("start otp_win64_24.3.4.exe /S");//установка Erlang через класс InstallUnit
+            //Erlang.CmdRun();
             //InstallUnit RabbitSet = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + @"set ERLANG_HOME = C:\Program Files\erl-24.3.5");//was erl-24.3.4
             //RabbitSet.CmdRun();
-            Environment.SetEnvironmentVariable("ERLANG_HOME", @"C:\Program Files\erl-24.3.4");
-            InstallUnit Rabbit = new InstallUnit("start rabbitmq-server-3.10.1.exe");//установка Rabbit через класс InstallUnit
-            Rabbit.CmdRun();
+            //Environment.SetEnvironmentVariable("ERLANG_HOME", @"C:\Program Files\erl-24.3.4");
+            //InstallUnit Rabbit = new InstallUnit("start rabbitmq-server-3.10.1.exe");//установка Rabbit через класс InstallUnit
+            //Rabbit.CmdRun();
 
             
-            InstallUnit RabbitRemove = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin"+"\new"+"rabbitmq-service remove");
-            RabbitRemove.CmdRun();
-            InstallUnit RabbitInstall = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin"+"\new"+"rabbitmq-service install");
-            RabbitInstall.CmdRun();
-            Process.Start("net", "stop RabbitMQ")?.WaitForExit();
-            Process.Start("net", "start RabbitMQ")?.WaitForExit();
+            //InstallUnit RabbitRemove = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin"+"\new"+"rabbitmq-service remove");
+            //RabbitRemove.CmdRun();
+            //InstallUnit RabbitInstall = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin"+"\new"+"rabbitmq-service install");
+            //RabbitInstall.CmdRun();
+            //Process.Start("net", "stop RabbitMQ")?.WaitForExit();
+            //Process.Start("net", "start RabbitMQ")?.WaitForExit();
             
-            InstallUnit RabbitPlugins = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-plugins enable rabbitmq_management");
-            RabbitPlugins.CmdRun();
-            RabbitRemove.CmdRun();
-            RabbitInstall.CmdRun();
+            //InstallUnit RabbitPlugins = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-plugins enable rabbitmq_management");
+            //RabbitPlugins.CmdRun();
+            //RabbitRemove.CmdRun();
+            //RabbitInstall.CmdRun();
 
             Process.Start("net", "stop RabbitMQ")?.WaitForExit();
              Process.Start("net", "start RabbitMQ")?.WaitForExit();
@@ -79,18 +79,7 @@ namespace Installer
         {
 
 
-            InstallUnit RabbitSet = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + @"set ERLANG_HOME = c:\Program Files\erl-24.3.4");
-            RabbitSet.CmdRun();
-            InstallUnit RabbitRemove = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-service remove");
-            RabbitRemove.CmdRun();
-            InstallUnit RabbitInstall = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-service install");
-            RabbitInstall.CmdRun();
-            InstallUnit RabbitPlugins = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-plugins enable rabbitmq_management");
-            RabbitPlugins.CmdRun();
-            RabbitRemove.CmdRun();
-            RabbitInstall.CmdRun();
-            InstallUnit RabbitStart = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-service start");
-            RabbitStart.CmdRun();
+            
             
 
 
@@ -104,8 +93,8 @@ namespace Installer
             //BatchReplace("xcopy", "xcopy " + Directory.GetCurrentDirectory() + @"\resfiles\RabbitPrompt");
             //BatchReplace("ProgramDirectory", Directory.GetCurrentDirectory());
 
-            InstallUnit BatchFile = new InstallUnit("start run.bat");
-            BatchFile.CmdRun();
+            //InstallUnit BatchFile = new InstallUnit("start run.bat");
+            //BatchFile.CmdRun();
 
         }
     }

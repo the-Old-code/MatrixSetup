@@ -9,7 +9,9 @@
     <Grid>
         <TextBlock x:Name="txt_RabbitInstall" HorizontalAlignment="Left" Margin="40,42,0,0" Text="Установка RabbitMQ" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="386" FontSize="40"/>
         <Button x:Name="btn_RabbitInstall" Content="Установить RabbitMQ" HorizontalAlignment="Left" Margin="40,269,0,0" VerticalAlignment="Top" Width="193" Height="45" FontSize="17" Click="btn_RabbitInstall_Click"/>
-        <TextBlock x:Name="txt_RabbitDescription" HorizontalAlignment="Center" Text="Нажмите на 'Установить RabbitMq'. Подождите. Далее в новом появивишемся окне нажимайте Next, ничего не меняйте. Далее нажмите в этом окне Finish. После этого не закрывайте программу до появления сообщения об окончании установки." TextWrapping="Wrap" VerticalAlignment="Center" FontSize="17" Width="768"/>
+        <TextBlock x:Name="txt_RabbitDescription" HorizontalAlignment="Center" Text="Нажмите на 'Установить RabbitMQ'. Подождите. Не закрывайте программу до появления сообщения об окончании установки." TextWrapping="Wrap" VerticalAlignment="Center" FontSize="17" Width="768"/>
+        <Label x:Name="lbl_taskProgress" Content="" HorizontalAlignment="Left" Margin="424,229,0,0" VerticalAlignment="Top" Width="361"/>
+        <ProgressBar x:Name="prgbar_taskProgress" HorizontalAlignment="Left" Height="25" Margin="426,279,0,0" VerticalAlignment="Top" Width="359"/>
 
     </Grid>
 </Window>
