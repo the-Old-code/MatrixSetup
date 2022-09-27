@@ -31,7 +31,7 @@ namespace Installer
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             
-            Main.Content = new Redis();
+            
         }
 
         private void selectfile_btn_Click(object sender, RoutedEventArgs e)

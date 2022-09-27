@@ -8,29 +8,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Installer
 {
     /// <summary>
-    /// Interaction logic for IsRabbitHere.xaml
+    /// Interaction logic for ProgressBar.xaml
     /// </summary>
-    public partial class IsRabbitHere : Page
+    public partial class ProgressBar : Window
     {
-        public IsRabbitHere()
+        public ProgressBar()
         {
             InitializeComponent();
-        }
-
-        private void btn_Have_Rabbit_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void btn_No_Rabbit_Click(object sender, RoutedEventArgs e)
-        {
-            Redis1.Content = new RabbitMQ();
         }
     }
 }

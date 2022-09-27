@@ -29,14 +29,14 @@ namespace Installer
         private bool write;//true - вводит нужные текстовые данные(обычно команды) в запущенной программе(обычно в cmd), false - не вводит
         private string writearg;//все текстовые данные, которые вводятся 
         public string taskName;//имя процесса для отображения пользователю
-        public event ProgressBarHandler Notify;
+        //public event ProgressBarHandler Notify;
         public InstallUnit()
         {
             Path =  Directory.GetCurrentDirectory();
         }
         public InstallUnit(string Arg, string taskName) : this()//конструктор с аргументом для командной строки, путь где находятся файлы это одна директория с установщиком
         {
-            this.Notify = Notify;
+            //this.Notify = Notify;
             this.taskName = taskName;
             this.Arg = Arg;
             filename = "cmd.exe";
