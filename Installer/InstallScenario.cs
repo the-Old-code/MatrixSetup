@@ -9,6 +9,16 @@ namespace Installer
 {
     public static class InstallScenario
     {
+        private static InstallUnit erlangInstall = new InstallUnit("start otp_win64_24.3.4.exe /S", "Установка Erlang");//установка Erlang через класс InstallUnit
+        private static InstallUnit rabbitInstall = new InstallUnit("start rabbitmq-server-3.10.1.exe /S", "Установка RabbitMQ");//установка Rabbit через класс InstallUnit
+        private static InstallUnit rabbitServiceRemove = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-service remove", "Переустановка сервиса RabbitMQ");
+        private static InstallUnit rabbitServiceInstall = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-service install", "Переустановка сервиса RabbitMQ");
+        private static InstallUnit stopRabbitService = new InstallUnit("", "net", "stop RabbitMQ", false, "Перезапуск RabbitMQ");
+        private static InstallUnit startRabbitService = new InstallUnit("", "net", "start RabbitMQ", false, "Перезапуск RabbitMQ");
+        private static InstallUnit rabbitPluginsEnable = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-plugins enable rabbitmq_management", "Запуска плагина RabbitMQ");
+        private static InstallUnit java = new InstallUnit("jre - 8u321 - windows - x64.exe INSTALLCFG =\"%cd%\\config.cfg\"", "Установка Java");//установка Java через класс InstallUnit
+        private static InstallUnit neo4j = new InstallUnit("cd neo4j - community - 3.2.1\ncd bin\nneo4j install - service\nneo4j start", "Установка Neo4j");//установка Neo4j через класс InstallUnit
+
         public static List<string> MustInstalled = new List<string>()
         {
             "erlang",
@@ -96,32 +106,26 @@ namespace Installer
                 switch (select)
                 {
                     case "erlang":
-                        InstallUnit Erlang = new InstallUnit("start otp_win64_24.3.4.exe /S", "Установка Erlang");//установка Erlang через класс InstallUnit
-                        Erlang.CmdRun();
+                        erlangInstall.CmdRun();
                         Environment.SetEnvironmentVariable("ERLANG_HOME", @"C:\Program Files\erl-24.3.4");//установка переменной среды ERLANG_HOME //сделать, чтобы автоматически бралось имя erl
                         break;
                     case "rabbitmq":
-                        InstallUnit Rabbit = new InstallUnit("start rabbitmq-server-3.10.1.exe /S", "Установка RabbitMQ");//установка Rabbit через класс InstallUnit
-                        Rabbit.CmdRun();
-
-                        InstallUnit RabbitRemove = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-service remove", "Переустановка сервиса RabbitMQ");
-                        RabbitRemove.CmdRun();
-                        
-                        InstallUnit RabbitInstall = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-service install", "Переустановка сервиса RabbitMQ");
-                        RabbitInstall.CmdRun();
-                        
-                        InstallUnit StopRabbitMQ = new InstallUnit("", "net", "stop RabbitMQ", false, "Перезапуск RabbitMQ");
-                        StopRabbitMQ.CmdRun();
-                        
-                        InstallUnit StartRabbitMQ = new InstallUnit("", "net", "start RabbitMQ", false, "Перезапуск RabbitMQ");
-                        StartRabbitMQ.CmdRun();
-
-                        InstallUnit RabbitPlugins = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-plugins enable rabbitmq_management", "Запуска плагина RabbitMQ");
-                        RabbitPlugins.CmdRun();
-                        RabbitRemove.CmdRun();
-                        RabbitInstall.CmdRun();
-                        StopRabbitMQ.CmdRun();
-                        StartRabbitMQ.CmdRun();
+                        rabbitInstall.CmdRun();
+                        rabbitServiceRemove.CmdRun();
+                        rabbitServiceInstall.CmdRun();
+                        stopRabbitService.CmdRun();
+                        startRabbitService.CmdRun();
+                        rabbitPluginsEnable.CmdRun();
+                        rabbitServiceRemove.CmdRun();
+                        rabbitServiceInstall.CmdRun();
+                        stopRabbitService.CmdRun();
+                        startRabbitService.CmdRun();
+                        break;
+                    case "java":
+                        java.CmdRun();
+                        break;
+                    case "neo4j":
+                        neo4j.CmdRun();
                         break;
                 }
             }

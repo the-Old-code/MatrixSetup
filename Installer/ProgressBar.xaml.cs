@@ -19,7 +19,9 @@ namespace Installer
     {
         public ProgressBar()
         {
+            
             InitializeComponent();
         }
+        
     }
 }

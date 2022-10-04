@@ -6,7 +6,21 @@
         xmlns:local="clr-namespace:Installer"
         mc:Ignorable="d"
         Title="ProgressBar" Height="450" Width="800">
-    <Grid>
-        
+    <Grid ShowGridLines = "False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60*"></RowDefinition>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="50*"></RowDefinition>
+            <RowDefinition Height="70*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ProgressBar x:Name="prgbar_InstallProgress" x:FieldModifier="public" Grid.Row="1" Grid.Column="1"  />
+        <TextBlock x:Name="txtblck_InstallStage" x:FieldModifier="public" Grid.Row="3" Grid.Column="1" Text=""/>
     </Grid>
 </Window>
