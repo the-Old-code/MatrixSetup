@@ -18,7 +18,7 @@ using System.Reflection;
 
 namespace Installer
 {
-    //public delegate void ProgressBarHandler(string taskName);
+    public delegate void ProgressBarHandler(string taskName);
     
     public class InstallUnit
     {
@@ -29,7 +29,7 @@ namespace Installer
         private bool write;//true - вводит нужные текстовые данные(обычно команды) в запущенной программе(обычно в cmd), false - не вводит
         private string writearg;//все текстовые данные, которые вводятся 
         public string taskName;//имя процесса для отображения пользователю
-        //public static ProgressBarHandler Notify;
+        public static ProgressBarHandler Notify;
         public InstallUnit()
         {
             Path =  Directory.GetCurrentDirectory();
@@ -88,7 +88,7 @@ namespace Installer
      
         public virtual void CmdRun()//установка через командую строку
         {
-            //Notify.Invoke(taskName);
+            Notify.Invoke(taskName);
             
             //вызов события // в событие передается имя задачи и то, насколько заполняется прогрессбар
             Process cmd = new Process();

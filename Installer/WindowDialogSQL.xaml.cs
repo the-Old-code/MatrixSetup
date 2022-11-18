@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -14,16 +13,13 @@ using System.Windows.Shapes;
 namespace Installer
 {
     /// <summary>
-    /// Interaction logic for ProgressBar.xaml
+    /// Interaction logic for WindowDialogSQL.xaml
     /// </summary>
-    public partial class ProgressBar : Window
+    public partial class WindowDialogSQL : Window
     {
-        public ProgressBar()
+        public WindowDialogSQL()
         {
-            
             InitializeComponent();
         }
-
-        
     }
 }

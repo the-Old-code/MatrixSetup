@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace Installer
 {
+    
     public static class InstallScenario
     {
         private static InstallUnit erlangInstall = new InstallUnit("start otp_win64_24.3.4.exe /S", "Установка Erlang");//установка Erlang через класс InstallUnit
@@ -15,21 +16,31 @@ namespace Installer
         private static InstallUnit rabbitServiceInstall = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-service install", "Переустановка сервиса RabbitMQ");
         private static InstallUnit stopRabbitService = new InstallUnit("", "net", "stop RabbitMQ", false, "Перезапуск RabbitMQ");
         private static InstallUnit startRabbitService = new InstallUnit("", "net", "start RabbitMQ", false, "Перезапуск RabbitMQ");
-        private static InstallUnit rabbitPluginsEnable = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-plugins enable rabbitmq_management", "Запуска плагина RabbitMQ");
+        private static InstallUnit rabbitPluginsEnable = new InstallUnit(@"pushd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.10.1\sbin" + "\new" + "rabbitmq-plugins enable rabbitmq_management", "Запуск плагина RabbitMQ");
         private static InstallUnit java = new InstallUnit("jre - 8u321 - windows - x64.exe INSTALLCFG =\"%cd%\\config.cfg\"", "Установка Java");//установка Java через класс InstallUnit
-        private static InstallUnit neo4j = new InstallUnit("cd neo4j - community - 3.2.1\ncd bin\nneo4j install - service\nneo4j start", "Установка Neo4j");//установка Neo4j через класс InstallUnit
-
+        private static InstallUnit neo4j;//установка Neo4j через класс InstallUnit
+        private static InstallUnit webServer;
+        private static string matrixPath = "C:\\Program Files";
+        public static ProgressBarHandler Notify;
+        public static string WebPath
+        {
+            set
+            {
+                matrixPath = value;
+            }
+        }
         public static List<string> MustInstalled = new List<string>()
         {
             "erlang",
-            "rabbitmq",
+          //"rabbitmq",
           //"redis",
           //"java",
           //"neo4j"
+          //"web"
         };
         public static void AddInstall(string install) 
         {
-            MustInstalled.Add(install);
+            if (!MustInstalled.Contains(install)) MustInstalled.Add(install);
         }
         public static void RemoveInstall(string install) 
         {
@@ -37,9 +48,7 @@ namespace Installer
         }
         public static void DefaultInstall()
         {
-            InstallSelected(MustInstalled);
-            
-
+            InstallSelected(MustInstalled.Except(Check()).ToList());
             if(Check().Count != MustInstalled.Count) Reinstall();
         }
         public static List<string> Check()
@@ -66,7 +75,7 @@ namespace Installer
                 {
                     if (install.ToLower().IndexOf(selectInstall) != -1)
                     {
-                        DetectedInstalls.Add(selectInstall);
+                        DetectedInstalls.Add(selectInstall);//добавление распознанных программ в список программ
                     }
                 }
             }
@@ -101,15 +110,18 @@ namespace Installer
         }
         public static void InstallSelected(List<string> mustSelectInstalled)
         {
+            InstallUnit.Notify = Notify;
             foreach(string select in mustSelectInstalled)
             {
                 switch (select)
                 {
                     case "erlang":
+                        //Notify.Invoke("erlang");
                         erlangInstall.CmdRun();
                         Environment.SetEnvironmentVariable("ERLANG_HOME", @"C:\Program Files\erl-24.3.4");//установка переменной среды ERLANG_HOME //сделать, чтобы автоматически бралось имя erl
                         break;
                     case "rabbitmq":
+                        //Notify.Invoke("rabbitmq");
                         rabbitInstall.CmdRun();
                         rabbitServiceRemove.CmdRun();
                         rabbitServiceInstall.CmdRun();
@@ -125,7 +137,12 @@ namespace Installer
                         java.CmdRun();
                         break;
                     case "neo4j":
+                        neo4j = new InstallUnit(@"xcopy %cd%\neo4j - community - 3.2.1 " + matrixPath + @"\Matrix" + "\new" + "cd neo4j - community - 3.2.1" + "\new" + "cd bin" + "\new" + "neo4j install - service" + "\new" + "neo4j start", "Установка Neo4j");
                         neo4j.CmdRun();
+                        break;
+                    case "web":
+                        webServer = new InstallUnit("","Установка Web Server");
+                        webServer.CmdRun();
                         break;
                 }
             }
@@ -141,7 +158,7 @@ namespace Installer
             List<string> detectedInstalls;
             detectedInstalls = Check();
             List<string> toReinstall;
-            toReinstall = (System.Collections.Generic.List<string>)MustInstalled.Except(detectedInstalls);
+            toReinstall = (System.Collections.Generic.List<string>)MustInstalled.Except(detectedInstalls);//не работает
             InstallSelected(toReinstall);
             if (Check().Count != MustInstalled.Count) Reinstall();
         }
