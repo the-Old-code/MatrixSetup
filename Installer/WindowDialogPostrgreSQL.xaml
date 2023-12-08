@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Installer"
         mc:Ignorable="d"
-        Title="WindowDialogPostrgreSQL" Height="450" Width="800">
-    <Grid>
-        
+        Title="WindowDialogPostrgreSQL" Height="245" Width="395">
+    <Grid x:Name="grd_Postgre" Height="229" VerticalAlignment="Top">
+        <TextBox x:Name="txtbox_User_ID" HorizontalAlignment="Left" Margin="88,136,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="287"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="24,63,0,0" Text="Имя сервера" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtbox_Server" HorizontalAlignment="Left" Margin="156,63,0,148" Text="" TextWrapping="Wrap" Width="219"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="154,24,0,0" Text="Postgre SQL" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20"/>
+        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="24,86,0,0" Text="Название базы данных" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtbox_Database" HorizontalAlignment="Left" Margin="156,86,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="219"/>
+        <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="24,138,0,0" Text="Имя входа" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtbox_Password" HorizontalAlignment="Left" Margin="88,160,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="287"/>
+        <TextBlock x:Name="textBlock_Copy3" HorizontalAlignment="Left" Margin="24,161,0,0" Text="Пароль" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtbox_Port" HorizontalAlignment="Left" Margin="88,114,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="287"/>
+        <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="25,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Порт"/></TextBlock>
+        <Button x:Name="btn_OK" Content="OK" Margin="24,184,261,25" Click="btn_OK_Click"/>
     </Grid>
 </Window>

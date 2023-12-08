@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Installer"
         mc:Ignorable="d"
-        Title="WindowDialogWeb" Height="189" Width="754" ResizeMode="NoResize">
-    <Grid Margin="0,0,0,8">
-        <TextBlock x:Name="txtblck_title" HorizontalAlignment="Left" Margin="17,45,0,0" Text="Введите путь для установки WebServer и Neo4j:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtbx_webinstallpath" HorizontalAlignment="Left" Margin="307,45,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="323"/>
-        <Button x:Name="btn_enterpath" Content="Ввести" HorizontalAlignment="Left" Margin="240,78,0,0" VerticalAlignment="Top" Width="195" Click="button_Click"/>
-        <Button x:Name="btn_browsepath" Content="выбрать папку" HorizontalAlignment="Left" Margin="635,44,0,0" VerticalAlignment="Top" Width="85" Click="btn_browsepath_Click"/>
-        <TextBlock x:Name="txtblck_text1" HorizontalAlignment="Left" Margin="17,14,0,0" Text="При закрытии этого окна до ввода значение останется по умолчанию (C:\Program Files)" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="txtblck_text2" HorizontalAlignment="Left" Margin="17,108,0,0" Text="В выбранной папке будет создана папка matrix." TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <CheckBox x:Name="chkbox_Neo4j" Content="Neo4j" HorizontalAlignment="Left" Margin="17,78,0,0" VerticalAlignment="Top" Checked="chkbox_Neo4j_Checked" Unchecked="chkbox_Neo4j_Unchecked"/>
-        <CheckBox x:Name="chkbox_WebServer" Content="WebServer" HorizontalAlignment="Left" Margin="104,78,0,0" VerticalAlignment="Top" Checked="chkbox_WebServer_Checked" Unchecked="chkbox_WebServer_Unchecked"/>
+        Title="WindowDialogWeb" Height="165" Width="745" ResizeMode="NoResize">
+    <Grid>
+        <TextBlock x:Name="txtblck_title" HorizontalAlignment="Left" Margin="17,0,0,73" Text="Введите путь для установки WebServer:" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="txtbx_webinstallpath" HorizontalAlignment="Left" Margin="307,0,0,71" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="323"/>
+        <Button x:Name="btn_enterpath" Content="Ок" HorizontalAlignment="Left" Margin="240,0,0,36" VerticalAlignment="Bottom" Width="195" Click="btn_OK_Click"/>
+        <Button x:Name="btn_browsepath" Content="Выбрать папку" HorizontalAlignment="Left" Margin="635,0,0,70" VerticalAlignment="Bottom" Width="85" Click="btn_browsepath_Click"/>
+        <TextBlock x:Name="txtblck_text1" HorizontalAlignment="Left" Margin="17,0,0,104" Text="При закрытии этого окна до ввода значение останется по умолчанию (C:\Program Files)" TextWrapping="Wrap" Height="16" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="txtblck_text2" HorizontalAlignment="Left" Margin="17,0,0,10" Text="В выбранной папке будет создана папка matrix." TextWrapping="Wrap" Height="16" VerticalAlignment="Bottom"/>
+        <CheckBox x:Name="chkbox_Neo4j" Content="Neo4j" HorizontalAlignment="Left" Margin="17,0,0,41" VerticalAlignment="Bottom" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unchecked" />
+        <CheckBox x:Name="chkbox_WebServer" Content="WebServer" HorizontalAlignment="Left" Margin="104,0,0,41" VerticalAlignment="Bottom" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unchecked"/>
 
     </Grid>
 </Window>

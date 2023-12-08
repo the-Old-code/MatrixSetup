@@ -21,5 +21,23 @@ namespace Installer
         {
             InitializeComponent();
         }
+
+        private void btn_PostgreSql_Click(object sender, RoutedEventArgs e)
+        {
+            WindowDialogPostrgreSQL Postrge = new WindowDialogPostrgreSQL();
+            Postrge.ShowDialog();
+        }
+
+        private void btn_MsSql_Click(object sender, RoutedEventArgs e)
+        {
+            WindowDialogMsSQL msSQL= new WindowDialogMsSQL();
+            msSQL.ShowDialog();
+        }
+
+        private void btn_SqLite_Click(object sender, RoutedEventArgs e)
+        {
+            WindowDialogSQLite SQLite = new WindowDialogSQLite();
+            SQLite.ShowDialog();
+        }
     }
 }

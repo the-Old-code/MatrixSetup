@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Installer"
         mc:Ignorable="d"
-        Title="WindowDialogMsSQL" Height="450" Width="800">
-    <Grid>
-        
+        Title="WindowDialogMsSQL" Height="279" Width="400" ResizeMode="NoResize">
+
+    <Grid x:Name="grd_msSQL" Margin="0,0,0,-2">
+        <TextBox x:Name="txtbox_userID" HorizontalAlignment="Left" Margin="88,155,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="287" IsEnabled="False"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="24,63,0,0" Text="Имя сервера" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtbox_dataSource" HorizontalAlignment="Left" Margin="156,63,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="219"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="154,24,0,0" Text="Microsoft SQL" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20"/>
+        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="24,86,0,0" Text="Название базы данных" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtbox_initialCatalog" HorizontalAlignment="Left" Margin="156,86,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="219"/>
+        <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="25,112,0,0" Text="Проверка подлинности" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbbox_integratedSecurity"  HorizontalAlignment="Left" Margin="159,109,0,0" VerticalAlignment="Top" Width="216" SelectionChanged="cmbbox_integratedSecurity_SelectionChanged">
+            <TextBlock Text="Проверка подлинности SQL Server"></TextBlock>
+            <TextBlock Text="Проверка подлинности Windows"></TextBlock>
+        </ComboBox>
+        <TextBlock x:Name="txtblc_Copy2" HorizontalAlignment="Left" Margin="25,156,0,0" Text="Имя входа" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtbox_password" HorizontalAlignment="Left" Margin="88,178,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="287" IsEnabled="False"/>
+        <TextBlock x:Name="textBlock_Copy3" HorizontalAlignment="Left" Margin="25,179,0,0" Text="Пароль" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="btn_save" Content="Сохранить" HorizontalAlignment="Left" Margin="25,209,0,0" VerticalAlignment="Top" Width="70" Height="20" Click="btn_save_Click"/>
+
     </Grid>
 </Window>

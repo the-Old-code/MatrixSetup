@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Installer
 {
@@ -15,24 +16,8 @@ namespace Installer
             InitializeComponent();
         }
         delegate void updateTxtBlc(string state);
-        private void btn_RabbitInstall_Click(object sender, RoutedEventArgs e)
+        private void btn_RabbitInstall_Click(object sender, RoutedEventArgs e)//was async
         {
-            /*Task task = new Task(() => { InstallScenario.DefaultInstall(); MessageBox.Show("Установка RabbitMQ завершена."); });
-            Task task2 = new Task(()=>{
-                prgbar_taskProgress.Visibility = Visibility.Visible;
-                prgbar_taskProgress.IsIndeterminate = true;
-                
-            });
-            
-            task.Start();
-            task2.Start();
-
-            task.Wait();
-            task2.Wait();
-            prgbar_taskProgress.IsIndeterminate = false;
-            
-            Process.Start("explorer.exe", @"http://localhost:15672");
-            //Installer.App.Current.Shutdown();*/
             StartTask();
         }
 
@@ -47,7 +32,6 @@ namespace Installer
             prgbar_taskProgress.IsIndeterminate = false;
             prgbar_taskProgress.Visibility = Visibility.Hidden;
             btn_RabbitInstall.IsEnabled = true;
-            Process.Start("explorer.exe", @"http://localhost:15672");
         }
         private void LongRunningTask() 
         {
@@ -60,41 +44,74 @@ namespace Installer
         }
         private void UpdateState(string task)
         {
-            Dispatcher.BeginInvoke(new updateTxtBlc(Update), new object[] {task});
+            Dispatcher.BeginInvoke(new updateTxtBlc(Update), new string[] {task});
         }
 
-        private void chkbox_Web_Checked(object sender, RoutedEventArgs e)
+        private void chkbox_Install_Checked(object sender, RoutedEventArgs e) 
+        {
+            if (sender is CheckBox checkBox)
+            {
+                switch (checkBox.Name)
+                {
+                    case "chkbox_java":
+                        InstallScenario.AddInstall(InstallScenario.InstallComponent.java);
+                        break;
+                    case "chkbox_rabbit":
+                        InstallScenario.AddInstall(InstallScenario.InstallComponent.erlang);
+                        InstallScenario.AddInstall(InstallScenario.InstallComponent.rabbitmq);
+                        break;
+                    case "chkbox_Web":
+                        WindowDialogWeb win = new WindowDialogWeb();
+                        win.ShowDialog();
+                        break;
+                    case "chkbox_SQL":
+                        WindowDialogSQL SQL = new WindowDialogSQL();
+                        SQL.ShowDialog();
+                        break;
+                    case "chkbox_Poll":
+                        InstallScenario.AddInstall(InstallScenario.InstallComponent.poll);
+                        break;
+                    case "chkbox_Check":
+                        InstallScenario.AddInstall(InstallScenario.InstallComponent.check);
+                        break;
+                    case "chkbox_Sheduler":
+                        InstallScenario.AddInstall(InstallScenario.InstallComponent.sheduler);
+                        break;
+                }
+
+            }
+        }
+        private void chkbox_Install_Unсhecked(object sender, RoutedEventArgs e)
         {
             
-            WindowDialogWeb win = new WindowDialogWeb();
-            win.Show();
-            InstallScenario.AddInstall("web");
-        }
-
-        private void chkbox_Web_Unchecked(object sender, RoutedEventArgs e)
-        {
-            InstallScenario.RemoveInstall("web");
-        }
-
-
-        private void chkbox_rabbit_Checked(object sender, RoutedEventArgs e)
-        {
-            InstallScenario.AddInstall("rabbitmq");
-        }
-
-        private void chkbox_rabbit_Unchecked(object sender, RoutedEventArgs e)
-        {
-            InstallScenario.RemoveInstall("rabbitmq");
-        }
-
-        private void chkbox_java_Checked(object sender, RoutedEventArgs e)
-        {
-            InstallScenario.AddInstall("java");
-        }
-
-        private void chkbox_java_Unchecked(object sender, RoutedEventArgs e)
-        {
-            InstallScenario.RemoveInstall("neo4j");
+            if (sender is CheckBox checkBox)
+            {
+                switch (checkBox.Name)
+                {
+                    case "chkbox_java":
+                        InstallScenario.RemoveInstall(InstallScenario.InstallComponent.java);
+                        break;
+                    case "chkbox_rabbit":
+                        InstallScenario.RemoveInstall(InstallScenario.InstallComponent.erlang);
+                        InstallScenario.RemoveInstall(InstallScenario.InstallComponent.rabbitmq);
+                        break;
+                    case "chkbox_Web":
+                        //InstallScenario.RemoveInstall("web");
+                        //InstallScenario.RemoveInstall("neo4j");
+                        break;
+                    case "chkbox_SQL":
+                        break;
+                    case "chkbox_Poll":
+                        InstallScenario.RemoveInstall(InstallScenario.InstallComponent.poll);
+                        break;
+                    case "chkbox_Check":
+                        InstallScenario.RemoveInstall(InstallScenario.InstallComponent.check);
+                        break;
+                    case "chkbox_Sheduler":
+                        InstallScenario.RemoveInstall(InstallScenario.InstallComponent.sheduler);
+                        break;
+                }
+            }
         }
     }
 }

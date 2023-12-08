@@ -9,10 +9,10 @@ namespace Installer
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            //RabbitMQStartPage window = new RabbitMQStartPage();
-            //window.Show();
-            WindowDialogSQL window = new WindowDialogSQL();
+            RabbitMQStartPage window = new RabbitMQStartPage();
             window.Show();
+            //WindowDialogMsSQL window = new WindowDialogMsSQL();
+            //window.Show();
         }
     }
 }

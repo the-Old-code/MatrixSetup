@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Installer
 {
@@ -20,6 +13,73 @@ namespace Installer
         public WindowDialogMsSQL()
         {
             InitializeComponent();
+        }
+
+        private void cmbbox_integratedSecurity_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbbox_integratedSecurity.SelectedItem is TextBlock txt)
+            {
+                if (txt.Text == "Проверка подлинности Windows")
+                {
+                    txtbox_password.IsEnabled = false;
+                    txtbox_userID.IsEnabled = false;
+                }
+                else 
+                {
+                    txtbox_password.IsEnabled = true;
+                    txtbox_userID.IsEnabled = true;
+                }
+            }
+        }
+
+        private void SetJsonConnectionStrings(string dataSource, string initialCatalog,string integrSecurity,string userID, string password)
+        {
+            string jsonString = File.ReadAllText(Directory.GetCurrentDirectory()+ "\\resfiles\\web4.4.6\\appsettings.json");
+            // Convert the JSON string to a JObject:
+            dynamic jsonObj = JsonConvert.DeserializeObject(jsonString);
+            jsonObj["ConnectionStrings"]["connectionString"] = "data source=" + dataSource + ";initial catalog=" + initialCatalog + "; Integrated Security=" + integrSecurity + "; User ID=" + userID + "; Password=" + password + ";";
+            jsonObj["ConnectionStrings"]["providerName"] = "System.Data.SqlClient";
+            string output = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
+            File.WriteAllText(Directory.GetCurrentDirectory() + "\\resfiles\\web4.4.6\\appsettings.json", output);
+        }
+
+        private void SetJsonConnectionStrings(string dataSource, string initialCatalog, string integrSecurity)
+        {
+            string jsonString = File.ReadAllText(Directory.GetCurrentDirectory() + "\\resfiles\\web4.4.6\\appsettings.json");
+            // Convert the JSON string to a JObject:
+            dynamic jsonObj = JsonConvert.DeserializeObject(jsonString);
+            jsonObj["ConnectionStrings"]["connectionString"] = "data source=" + dataSource + ";initial catalog=" + initialCatalog + "; Integrated Security=" + integrSecurity + ";";
+            jsonObj["ConnectionStrings"]["providerName"] = "System.Data.SqlClient";
+            string output = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
+            File.WriteAllText(Directory.GetCurrentDirectory() + "\\resfiles\\web4.4.6\\appsettings.json", output);
+        }
+
+        private void btn_save_Click(object sender, RoutedEventArgs e)
+        {
+            
+            bool isSuccesfullEnter = true;
+            foreach (object a in grd_msSQL.Children)
+            {
+                if (a is TextBox txt)
+                {
+                    if (txt.Text == "" && txt.IsEnabled)
+                    {
+                        MessageBox.Show("Есть невведенные поля");
+                        isSuccesfullEnter = false;
+                        break;
+                    }
+                }
+            }
+            if (isSuccesfullEnter && txtbox_password.IsEnabled)
+            {
+                SetJsonConnectionStrings(txtbox_dataSource.Text, txtbox_initialCatalog.Text, (!txtbox_password.IsEnabled).ToString(), txtbox_userID.Text, txtbox_password.Text);
+                Close();
+            }
+            else if (isSuccesfullEnter && !txtbox_password.IsEnabled) 
+            {
+                SetJsonConnectionStrings(txtbox_dataSource.Text, txtbox_initialCatalog.Text, (!txtbox_password.IsEnabled).ToString());
+                Close();
+            }
         }
     }
 }

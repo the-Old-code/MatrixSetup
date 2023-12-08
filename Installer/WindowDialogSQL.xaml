@@ -7,10 +7,14 @@
         mc:Ignorable="d"
         Title="WindowDialogSQL" Height="179" Width="644">
     <Grid Margin="0,0,10,-6">
-        <Button x:Name="btn_PostgreSql" Content="Postgre SQL" HorizontalAlignment="Left" Margin="94,95,0,0" VerticalAlignment="Top" Height="35" Width="91" FontWeight="Bold"/>
-        <Button x:Name="btn_MsSql" Content="MS SQL" HorizontalAlignment="Center" Margin="0,95,0,0" VerticalAlignment="Top" Height="35" Width="106" FontWeight="Bold"/>
-        <Button x:Name="btn_SqLite" Content="SQLite" HorizontalAlignment="Left" Margin="440,95,0,0" VerticalAlignment="Top" Height="35" Width="100" FontWeight="Bold"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0,24,0,0" Text="Выберите нужную СУБД" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Normal" FontSize="40"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160*"/>
+            <ColumnDefinition Width="157*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btn_PostgreSql" Content="Postgre SQL" HorizontalAlignment="Left" Margin="94,95,0,0" VerticalAlignment="Top" Height="35" Width="91" FontWeight="Bold" Click="btn_PostgreSql_Click"/>
+        <Button x:Name="btn_MsSql" Content="MS SQL" HorizontalAlignment="Left" Margin="264,95,0,0" VerticalAlignment="Top" Height="35" Width="106" FontWeight="Bold" Grid.ColumnSpan="2" Click="btn_MsSql_Click"/>
+        <Button x:Name="btn_SqLite" Content="SQLite" HorizontalAlignment="Left" Margin="120,95,0,0" VerticalAlignment="Top" Height="35" Width="100" FontWeight="Bold" Grid.Column="1" Click="btn_SqLite_Click"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="94,24,0,0" Text="Выберите нужную СУБД" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Normal" FontSize="40" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>
