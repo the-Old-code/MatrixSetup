@@ -34,24 +34,14 @@ namespace Installer
 
         private void SetJsonConnectionStrings(string dataSource, string initialCatalog,string integrSecurity,string userID, string password)
         {
-            string jsonString = File.ReadAllText(Directory.GetCurrentDirectory()+ "\\resfiles\\web4.4.6\\appsettings.json");
-            // Convert the JSON string to a JObject:
-            dynamic jsonObj = JsonConvert.DeserializeObject(jsonString);
-            jsonObj["ConnectionStrings"]["connectionString"] = "data source=" + dataSource + ";initial catalog=" + initialCatalog + "; Integrated Security=" + integrSecurity + "; User ID=" + userID + "; Password=" + password + ";";
-            jsonObj["ConnectionStrings"]["providerName"] = "System.Data.SqlClient";
-            string output = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
-            File.WriteAllText(Directory.GetCurrentDirectory() + "\\resfiles\\web4.4.6\\appsettings.json", output);
+            string connectionString = "data source=" + dataSource + ";initial catalog=" + initialCatalog + "; Integrated Security=" + integrSecurity + "; User ID=" + userID + "; Password=" + password + ";";
+            InstallScenario.InitializeWebServerConnectionStrings(InstallScenario.ConnectionStringsType.MsSQL, connectionString);
         }
 
         private void SetJsonConnectionStrings(string dataSource, string initialCatalog, string integrSecurity)
         {
-            string jsonString = File.ReadAllText(Directory.GetCurrentDirectory() + "\\resfiles\\web4.4.6\\appsettings.json");
-            // Convert the JSON string to a JObject:
-            dynamic jsonObj = JsonConvert.DeserializeObject(jsonString);
-            jsonObj["ConnectionStrings"]["connectionString"] = "data source=" + dataSource + ";initial catalog=" + initialCatalog + "; Integrated Security=" + integrSecurity + ";";
-            jsonObj["ConnectionStrings"]["providerName"] = "System.Data.SqlClient";
-            string output = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
-            File.WriteAllText(Directory.GetCurrentDirectory() + "\\resfiles\\web4.4.6\\appsettings.json", output);
+            string connectionString = "data source=" + dataSource + ";initial catalog=" + initialCatalog + "; Integrated Security=" + integrSecurity + ";";
+            InstallScenario.InitializeWebServerConnectionStrings(InstallScenario.ConnectionStringsType.MsSQL, connectionString);
         }
 
         private void btn_save_Click(object sender, RoutedEventArgs e)

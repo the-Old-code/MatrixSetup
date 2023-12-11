@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using System.Diagnostics;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -14,8 +12,9 @@ namespace Installer
         public RabbitMQStartPage()
         {
             InitializeComponent();
-        }
-        delegate void updateTxtBlc(string state);
+            this.DataContext = App.ViewModel;
+    }
+    delegate void updateTxtBlc(string state);
         private void btn_RabbitInstall_Click(object sender, RoutedEventArgs e)//was async
         {
             StartTask();
@@ -61,6 +60,7 @@ namespace Installer
                         InstallScenario.AddInstall(InstallScenario.InstallComponent.rabbitmq);
                         break;
                     case "chkbox_Web":
+                        InstallScenario.AddInstall(InstallScenario.InstallComponent.web);
                         WindowDialogWeb win = new WindowDialogWeb();
                         win.ShowDialog();
                         break;
@@ -76,6 +76,11 @@ namespace Installer
                         break;
                     case "chkbox_Sheduler":
                         InstallScenario.AddInstall(InstallScenario.InstallComponent.sheduler);
+                        break;
+                    case "chkbox_Neo4j":
+                        InstallScenario.AddInstall(InstallScenario.InstallComponent.neo4j);
+                        WindowDialogNeo4j neo4j = new WindowDialogNeo4j();
+                        neo4j.ShowDialog();
                         break;
                 }
 
@@ -96,8 +101,7 @@ namespace Installer
                         InstallScenario.RemoveInstall(InstallScenario.InstallComponent.rabbitmq);
                         break;
                     case "chkbox_Web":
-                        //InstallScenario.RemoveInstall("web");
-                        //InstallScenario.RemoveInstall("neo4j");
+                        InstallScenario.RemoveInstall(InstallScenario.InstallComponent.web);
                         break;
                     case "chkbox_SQL":
                         break;
@@ -109,6 +113,9 @@ namespace Installer
                         break;
                     case "chkbox_Sheduler":
                         InstallScenario.RemoveInstall(InstallScenario.InstallComponent.sheduler);
+                        break;
+                    case "chkbox_Neo4j":
+                        InstallScenario.RemoveInstall(InstallScenario.InstallComponent.neo4j);
                         break;
                 }
             }

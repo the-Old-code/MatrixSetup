@@ -11,10 +11,10 @@
         <TextBox x:Name="txtbx_webinstallpath" HorizontalAlignment="Left" Margin="307,0,0,71" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="323"/>
         <Button x:Name="btn_enterpath" Content="Ок" HorizontalAlignment="Left" Margin="240,0,0,36" VerticalAlignment="Bottom" Width="195" Click="btn_OK_Click"/>
         <Button x:Name="btn_browsepath" Content="Выбрать папку" HorizontalAlignment="Left" Margin="635,0,0,70" VerticalAlignment="Bottom" Width="85" Click="btn_browsepath_Click"/>
-        <TextBlock x:Name="txtblck_text1" HorizontalAlignment="Left" Margin="17,0,0,104" Text="При закрытии этого окна до ввода значение останется по умолчанию (C:\Program Files)" TextWrapping="Wrap" Height="16" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="txtblck_text1" HorizontalAlignment="Left" Margin="17,0,0,104" Text="При закрытии этого окна до ввода значение останется по умолчанию (C:\Program Files\Matrix)" TextWrapping="Wrap" Height="16" VerticalAlignment="Bottom" Width="644"/>
         <TextBlock x:Name="txtblck_text2" HorizontalAlignment="Left" Margin="17,0,0,10" Text="В выбранной папке будет создана папка matrix." TextWrapping="Wrap" Height="16" VerticalAlignment="Bottom"/>
-        <CheckBox x:Name="chkbox_Neo4j" Content="Neo4j" HorizontalAlignment="Left" Margin="17,0,0,41" VerticalAlignment="Bottom" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unchecked" />
-        <CheckBox x:Name="chkbox_WebServer" Content="WebServer" HorizontalAlignment="Left" Margin="104,0,0,41" VerticalAlignment="Bottom" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unchecked"/>
+        <!--<CheckBox x:Name="chkbox_Neo4j" Content="Neo4j" HorizontalAlignment="Left" Margin="17,0,0,41" VerticalAlignment="Bottom" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unchecked" />-->
+        <!--<CheckBox x:Name="chkbox_WebServer" Content="WebServer" HorizontalAlignment="Left" Margin="104,0,0,41" VerticalAlignment="Bottom" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unchecked"/>-->
 
     </Grid>
 </Window>

@@ -9,12 +9,12 @@
     <Grid Margin="0,0,10,-6">
         <TextBlock x:Name="txt_RabbitInstall" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Установка" Height="73" Width="208" FontSize="40" TextAlignment="Left" Margin="97,0,0,0"/>
         <Button x:Name="btn_RabbitInstall" Content="Установить" Margin="58,3,0,81" HorizontalAlignment="Left" Width="187" FontSize="17" Click="btn_RabbitInstall_Click" Grid.Row="3"/>
-        <TextBlock x:Name="txt_RabbitDescription" HorizontalAlignment="Center" Text="Нажмите на 'Установить'. Подождите. Не закрывайте программу до появления сообщения об окончании установки." TextWrapping="Wrap" VerticalAlignment="Center" FontSize="17" Width="1038" Grid.Row="1" Height="100"/>
+        <TextBlock x:Name="txt_RabbitDescription" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="17" Width="1038" Grid.Row="1" Height="100"><Run Language="ru-ru" Text="Если оставить все настройки по умолчанию, то система сама создаст базу данных и другие настройки."/><LineBreak/><Run Text="Нажмите на 'Установить'. Подождите. Не закрывайте программу до появления сообщения об окончании установки."/></TextBlock>
         <Grid Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Width="424">
             <TextBlock x:Name="txtblck_InstallStage" HorizontalAlignment="Center" VerticalAlignment="Bottom" x:FieldModifier="public" Text="" TextAlignment="Center" FontSize="20"  Width="360" Visibility="Visible"/>
             <ProgressBar x:Name="prgbar_taskProgress" HorizontalAlignment="Center" Height="25" Margin="30" VerticalAlignment="Center" Width="359" Grid.Row="3" IsIndeterminate="False" Visibility="Hidden"/>
         </Grid>
-        <CheckBox x:Name="chkbox_rabbit" Content="RabbitMQ" HorizontalAlignment="Left" Margin="81,61,0,0" Grid.Row="2" VerticalAlignment="Top" Width="74" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked">
+        <CheckBox x:Name="chkbox_rabbit" Content="RabbitMQ" HorizontalAlignment="Left" Margin="13,45,0,0" Grid.Row="2" VerticalAlignment="Top" Width="74" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked">
             <CheckBox.Style>
                 <Style TargetType="CheckBox">
                     <!--<Setter Property="IsChecked" Value="True"/>-->
@@ -26,7 +26,7 @@
                 </Style>
             </CheckBox.Style>
         </CheckBox>
-        <CheckBox x:Name="chkbox_java" Content="Java" HorizontalAlignment="Left" Margin="25,61,0,0" Grid.Row="2" VerticalAlignment="Top" Width="44" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked">
+        <CheckBox x:Name="chkbox_java" Content="Java" HorizontalAlignment="Left" Margin="13,25,0,0" Grid.Row="2" VerticalAlignment="Top" Width="44" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked">
             <CheckBox.Style>
                 <Style TargetType="CheckBox">
                     <!--<Setter Property="IsChecked" Value="True"/>-->
@@ -39,7 +39,7 @@
             </CheckBox.Style>
         </CheckBox>
         <!--<CheckBox x:Name="checkBox3" Content="CheckBox" HorizontalAlignment="Left" Margin="225,102,0,0" Grid.Row="2" VerticalAlignment="Top"/>-->
-        <CheckBox x:Name="chkbox_Web" Content="WebServer/Neo4j" HorizontalAlignment="Left" Margin="170,61,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked">
+        <CheckBox x:Name="chkbox_Web" Content="WebServer" HorizontalAlignment="Left" Margin="13,65,0,0" Grid.Row="2" VerticalAlignment="Top" Width="79" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked">
             <CheckBox.Style>
                 <Style TargetType="CheckBox">
                     <!--<Setter Property="IsChecked" Value="True"/>-->
@@ -51,11 +51,11 @@
                 </Style>
             </CheckBox.Style>
         </CheckBox>
-        <CheckBox x:Name="chkbox_selectall" Content="Выбрать всё" HorizontalAlignment="Left" Margin="25,33,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+        <CheckBox x:Name="chkbox_selectall" Content="Выбрать всё" HorizontalAlignment="Left" Margin="13,5,0,0" Grid.Row="2" VerticalAlignment="Top"/>
 
 
         <Image x:Name="longLogoSystem_png" Margin="671,-12,10,118" Grid.RowSpan="2" Grid.Row="0" Stretch="Fill" Source="/longLogoSystem.png"/>
-        <CheckBox x:Name="chkbox_SQL" Content="SQL параметры" HorizontalAlignment="Left" Margin="299,61,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked">
+        <CheckBox x:Name="chkbox_SQL" Content="SQL параметры" HorizontalAlignment="Left" Margin="13,93,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked">
             <CheckBox.Style>
                 <Style TargetType="CheckBox">
                     <!--<Setter Property="IsChecked" Value="True"/>-->
@@ -67,9 +67,17 @@
                 </Style>
             </CheckBox.Style>
         </CheckBox>
-        <CheckBox x:Name="chkbox_Poll" Content="Poll Server" HorizontalAlignment="Left" Margin="421,61,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked"/>
-        <CheckBox x:Name="chkbox_Check" Content="Check Server" HorizontalAlignment="Left" Margin="511,61,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked"/>
-        <CheckBox x:Name="chkbox_Sheduler" Content="Sheduler Server" HorizontalAlignment="Left" Margin="613,61,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked"/>
+        <CheckBox x:Name="chkbox_Poll" Content="Poll Server" HorizontalAlignment="Left" Margin="463,0,0,97" Grid.Row="2" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked" Height="15" VerticalAlignment="Bottom"/>
+        <CheckBox x:Name="chkbox_Check" Content="Check Server" HorizontalAlignment="Left" Margin="463,33,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked"/>
+        <CheckBox x:Name="chkbox_Sheduler" Content="Sheduler Server" HorizontalAlignment="Left" Margin="463,52,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked"/>
+        <CheckBox x:Name="chkbox_Neo4j" Content="Neo4j" HorizontalAlignment="Left" Margin="463,73,0,0" VerticalAlignment="Top" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked" Grid.Row="2" />
+        <TextBlock x:Name="Neo4j_Install_Path" Text="{Binding Source={x:Static local:InstallScenario.Neo4jInstallPath}}" HorizontalAlignment="Left" Margin="641,72,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="523,72,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="223,67,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding WebServerInstallPath}" VerticalAlignment="Top"/>
+        <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="97,64,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="550,12,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="570,52,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="556,33,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>

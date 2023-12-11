@@ -38,14 +38,9 @@ namespace Installer
 
         private void btn_OK_Click(object sender, RoutedEventArgs e)
         {
-            if (txtbox_path_Neo4j.Text.Contains(" ")) 
-            {
-                MessageBox.Show("В пути присутствуют пробелы");
-                return;
-            }
             if (Directory.Exists(txtbox_path_Neo4j.Text))
             {
-                InstallScenario.Neo4jInstallPath = txtbox_path_Neo4j.Text;
+                App.ViewModel.Neo4jInstallPath = txtbox_path_Neo4j.Text;
                 Close();
             }
             else if (txtbox_path_Neo4j.Text == "") Close();

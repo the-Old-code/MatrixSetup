@@ -26,23 +26,14 @@ namespace Installer
 
         private void btn_OK_Click(object sender, RoutedEventArgs e)
         {
-            if (txtbox_dataSource.Text == "") MessageBox.Show("Поле пустое");
-            else
-            {
-                SetJsonConnectionStrings(txtbox_dataSource.Text);
-                Close();
-            }
+            if (txtbox_dataSource.Text != "") SetJsonConnectionStrings(txtbox_dataSource.Text);
+            Close();
         }
 
         private void SetJsonConnectionStrings(string dataSource)
         {
-            string jsonString = File.ReadAllText(Directory.GetCurrentDirectory() + "\\resfiles\\web4.4.6\\appsettings.json");
-            // Convert the JSON string to a JObject:
-            dynamic jsonObj = JsonConvert.DeserializeObject(jsonString);
-            jsonObj["ConnectionStrings"]["connectionString"] = "data source=" + dataSource +  ";";
-            jsonObj["ConnectionStrings"]["providerName"] = "sqlite";
-            string output = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
-            File.WriteAllText(Directory.GetCurrentDirectory() + "\\resfiles\\web4.4.6\\appsettings.json", output);
+            string connectinString = "data source=" + dataSource +  ";";
+            InstallScenario.InitializeWebServerConnectionStrings(InstallScenario.ConnectionStringsType.SQLite, connectinString);
         }
     }
 }

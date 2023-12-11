@@ -12,6 +12,6 @@
         <TextBox x:Name="txtbox_path_Neo4j" HorizontalAlignment="Left" Margin="99,39,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="370"/>
         <Button x:Name="btn_OK" Content="ОК"  Click="btn_OK_Click" Margin="202,73,184,0" Height="23" VerticalAlignment="Top"/>
         <Button x:Name="btn_browsepath" Content="..." HorizontalAlignment="Left" Margin="474,39,0,0" VerticalAlignment="Top" Width="56" Click="btn_browsepath_Click" Height="18"/>
-        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="20,109,0,0" Text="В пути установки не должно быть пробелов. Если ничего не ввести в путь установки, то по умолчанию путь установки корневая папка несистемного диска." FontSize="12" TextWrapping="Wrap" FontWeight="Normal" Width="530" Height="38" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="20,109,0,0" FontSize="12" TextWrapping="Wrap" FontWeight="Normal" Width="530" Height="38" VerticalAlignment="Top"><Run Text="Если ничего не ввести в путь установки, "/><Run Language="ru-ru" Text="закрыть это окно или нажать "/><Run Text="&quot;"/><Run Language="ru-ru" Text="ОК"/><Run Text="&quot;"/><Run Language="ru-ru" Text=","/><Run Text=" то по умолчанию путь установки корневая папка несистемного диска."/></TextBlock>
     </Grid>
 </Window>

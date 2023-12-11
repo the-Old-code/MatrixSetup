@@ -26,13 +26,8 @@ namespace Installer
 
         private void SetJsonConnectionStrings(string Server, string Port, string User_ID, string Password, string Database)
         {
-            string jsonString = File.ReadAllText(Directory.GetCurrentDirectory() + "\\resfiles\\web4.4.6\\appsettings.json");
-            // Convert the JSON string to a JObject:
-            dynamic jsonObj = JsonConvert.DeserializeObject(jsonString);
-            jsonObj["ConnectionStrings"]["connectionString"] = "Server=" + Server + " ;Port=" + Port + " ; User Id=" + User_ID + " ; Password=" + Password + " ; Database=" + Database + ";";
-            jsonObj["ConnectionStrings"]["providerName"] = "Npgsql";
-            string output = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
-            File.WriteAllText(Directory.GetCurrentDirectory() + "\\resfiles\\web4.4.6\\appsettings.json", output);
+            string connectionString = "Server=" + Server + " ;Port=" + Port + " ; User Id=" + User_ID + " ; Password=" + Password + " ; Database=" + Database + ";";
+            InstallScenario.InitializeWebServerConnectionStrings(InstallScenario.ConnectionStringsType.PostgreSQL, connectionString);
         }
 
         private void btn_OK_Click(object sender, RoutedEventArgs e)

@@ -35,8 +35,9 @@ namespace Installer
         private static string pollServerInstallPath;
         private static string checkServerInstallPath;
         private static string shedulerServerInstallPath;
-        private static string webServerConnectionString;
+        private static string webServerConnectionStringConfig;
         private static string webServerDomain;
+        private static ConnectionStringsType connectionStringsType;
 
         public static ProgressBarHandler Notify;
         /// <summary>
@@ -55,7 +56,7 @@ namespace Installer
         /// <summary>
         /// Все установочные компоненты
         /// </summary>
-    public enum InstallComponent 
+        public enum InstallComponent 
         {
             erlang,
             rabbitmq,
@@ -66,6 +67,15 @@ namespace Installer
             poll,
             check,
             sheduler
+        }
+        /// <summary>
+        /// Виды ConnectionStrings для разных СУБД
+        /// </summary>
+        public enum ConnectionStringsType
+        {
+            MsSQL,
+            PostgreSQL,
+            SQLite
         }
         #region DistroFile&DirectoriesNames
         /// <summary>
@@ -301,7 +311,7 @@ namespace Installer
         /// <summary>
         /// Путь к установочнуому дистрибутиву Web Server в resfiles
         /// </summary>
-        private static string WebServerDistroPath 
+        public static string WebServerDistroPath 
         {
             get 
             {
@@ -337,6 +347,21 @@ namespace Installer
             {
                 return ResfilesPath + @"\" + ShedulerServerDirectoryName;
             }
+        }
+        #endregion
+        #region WebServerConfiguration
+        public static string WebServerConnectionString 
+        {
+            get 
+            {
+                if (webServerConnectionStringConfig == default) return "Matrix.db";
+                return webServerConnectionStringConfig;
+            }
+        }
+        public static void InitializeWebServerConnectionStrings(ConnectionStringsType type, string connectionString)
+        {
+            connectionStringsType = type;
+            webServerConnectionStringConfig = connectionString;
         }
         #endregion
 
@@ -474,23 +499,24 @@ namespace Installer
                         Environment.SetEnvironmentVariable(name, newvalue, scope);*/
                         break;
                     case InstallComponent.neo4j:
-                        neo4j = new InstallUnit(new List<string> { @"cd " + Neo4jDistroPath, @"xcopy %cd%\ " + @"""" + Neo4jInstallPath + " /S /Q", "pushd " + Neo4jInstallPath + @"\bin", "neo4j install-service", "neo4j start" }, "Установка Neo4j");
+                        neo4j = new InstallUnit(new List<string> { @"cd " + Neo4jDistroPath, @"xcopy %cd%\ " + @"""" + Neo4jInstallPath + @"""" + " /s /q", "pushd " + Neo4jInstallPath + @"\bin", "neo4j install-service", "neo4j start" }, "Установка Neo4j");
                         neo4j.ExecuteInstallationScript();
                         break;
                     case InstallComponent.web:
-                        webServer = new InstallUnit(new List<string> { @"cd " + WebServerDistroPath, @"xcopy %cd%\ " + @"""" + WebServerInstallPath + " /S /Q" }, "Установка Web Server");
+                        InitConnectionString();
+                        webServer = new InstallUnit(new List<string> { @"cd " + WebServerDistroPath, @"xcopy %cd%\ " + @"""" + WebServerInstallPath + @"""" + " /s /q" }, "Установка Web Server");
                         webServer.ExecuteInstallationScript();
                         break;
                     case InstallComponent.poll:
-                        pollServer = new InstallUnit(new List<string> { @"cd " + PollServerDistroPath, @"xcopy %cd%\ " + @"""" + PollServerInstallPath + " /S /Q" }, "Установка Poll Server");
+                        pollServer = new InstallUnit(new List<string> { @"cd " + PollServerDistroPath, @"xcopy %cd%\ " + @"""" + PollServerInstallPath + @"""" + " /s /q" }, "Установка Poll Server");
                         pollServer.ExecuteInstallationScript();
                         break;
                     case InstallComponent.check:
-                        checkServer = new InstallUnit(new List<string> { @"cd " + CheckServerDistroPath, @"xcopy %cd%\ " + @"""" + CheckServerInstallPath + " /S /Q" }, "Установка Check Server");
+                        checkServer = new InstallUnit(new List<string> { @"cd " + CheckServerDistroPath, @"xcopy %cd%\ " + @"""" + CheckServerInstallPath + @"""" + " /s /q" }, "Установка Check Server");
                         checkServer.ExecuteInstallationScript();
                         break;
                     case InstallComponent.sheduler:
-                        shedulerServer = new InstallUnit(new List<string> { @"cd " + ShedulerServerDistroPath, @"xcopy %cd%\ " + @"""" + ShedulerServerInstallPath + " /S /Q" }, "Установка Sheduler Server");
+                        shedulerServer = new InstallUnit(new List<string> { @"cd " + ShedulerServerDistroPath, @"xcopy %cd%\ " + @"""" + ShedulerServerInstallPath + @"""" + " /s /q" }, "Установка Sheduler Server");
                         shedulerServer.ExecuteInstallationScript();
                         break;
                 }
@@ -510,6 +536,21 @@ namespace Installer
             toReinstall = (List<InstallComponent>)MustInstalled.Except(detectedInstalls);//не работает
             InstallSelected(toReinstall);
             if (Check().Count != MustInstalled.Count) Reinstall();
+        }
+        private static void InitConnectionString() 
+        {
+            switch (connectionStringsType) 
+            {
+                case ConnectionStringsType.PostgreSQL:
+                    ServersAppsettings.InitConnectionStrings(WebServerConnectionString, "Npgsql");
+                    break;
+                case ConnectionStringsType.SQLite:
+                    ServersAppsettings.InitConnectionStrings(WebServerConnectionString, "sqlite");
+                    break;
+                case ConnectionStringsType.MsSQL:
+                    ServersAppsettings.InitConnectionStrings(WebServerConnectionString, "System.Data.SqlClient");
+                    break;
+            }
         }
     }
 }

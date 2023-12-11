@@ -27,7 +27,7 @@ namespace Installer
         {
             if (Directory.Exists(txtbx_webinstallpath.Text))
             {
-                InstallScenario.WebServerInstallPath = txtbx_webinstallpath.Text;
+                App.ViewModel.WebServerInstallPath = txtbx_webinstallpath.Text;
                 Close();
             }
             else if(txtbx_webinstallpath.Text == "") Close();
@@ -45,59 +45,6 @@ namespace Installer
             {
                 txtbx_webinstallpath.Text = folderDialog.SelectedPath;
             }
-        }
-
-        private void chkbox_Install_Checked(object sender, RoutedEventArgs e) 
-        {
-            if (sender is CheckBox checkBox)
-            {
-                switch (checkBox.Name)
-                {
-                    case "chkbox_Neo4j":
-                        InstallScenario.AddInstall(InstallScenario.InstallComponent.neo4j);
-                        WindowDialogNeo4j neo4J = new WindowDialogNeo4j();
-                        neo4J.ShowDialog();
-                        break;
-                    case "chkbox_WebServer":
-                        InstallScenario.AddInstall(InstallScenario.InstallComponent.web);
-                        break;
-                }
-
-            }
-        }
-        private void chkbox_Install_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (sender is CheckBox checkBox)
-            {
-                switch (checkBox.Name)
-                {
-                    case "chkbox_Neo4j":
-                        InstallScenario.RemoveInstall(InstallScenario.InstallComponent.neo4j);
-                        break;
-                    case "chkbox_WebServer":
-                        InstallScenario.RemoveInstall(InstallScenario.InstallComponent.web);
-                        break;
-                }
-
-            }
-        }
-        private void chkbox_Neo4j_Checked(object sender, RoutedEventArgs e)
-        {
-            InstallScenario.AddInstall(InstallScenario.InstallComponent.neo4j);
-        }
-        private void chkbox_Neo4j_Unchecked(object sender, RoutedEventArgs e)
-        {
-            InstallScenario.RemoveInstall(InstallScenario.InstallComponent.neo4j);
-        }
-
-        private void chkbox_WebServer_Checked(object sender, RoutedEventArgs e)
-        {
-            InstallScenario.AddInstall(InstallScenario.InstallComponent.web);
-        }
-
-        private void chkbox_WebServer_Unchecked(object sender, RoutedEventArgs e)
-        {
-            InstallScenario.RemoveInstall(InstallScenario.InstallComponent.web);
         }
     }
 }
