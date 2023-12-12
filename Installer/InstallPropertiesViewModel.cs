@@ -38,6 +38,42 @@ namespace Installer
                 OnPropertyChanged(nameof(WebServerInstallPath));
             }
         }
+        public string PollServerInstallPath 
+        {
+            get 
+            {
+                return InstallScenario.PollServerInstallPath;
+            }
+            set 
+            {
+                InstallScenario.PollServerInstallPath = value;
+                OnPropertyChanged(nameof(PollServerInstallPath));
+            }
+        }
+        public string CheckServerInstallPath
+        {
+            get
+            {
+                return InstallScenario.CheckServerInstallPath;
+            }
+            set
+            {
+                InstallScenario.CheckServerInstallPath = value;
+                OnPropertyChanged(nameof(CheckServerInstallPath));
+            }
+        }
+        public string ShedulerServerInstallPath 
+        {
+            get 
+            {
+                return InstallScenario.ShedulerServerInstallPath;
+            }
+            set 
+            {
+                InstallScenario.ShedulerServerInstallPath = value;
+                OnPropertyChanged(nameof(ShedulerServerInstallPath));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)

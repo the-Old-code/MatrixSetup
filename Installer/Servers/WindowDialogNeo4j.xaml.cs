@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows;
-using System.IO;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -14,24 +14,13 @@ using System.Windows.Shapes;
 namespace Installer
 {
     /// <summary>
-    /// Interaction logic for WindowDialogWeb.xaml
+    /// Interaction logic for WindowDialogNeo4j.xaml
     /// </summary>
-    public partial class WindowDialogWeb : Window
+    public partial class WindowDialogNeo4j : Window
     {
-        public WindowDialogWeb()
+        public WindowDialogNeo4j()
         {
             InitializeComponent();
-        }
-
-        private void btn_OK_Click(object sender, RoutedEventArgs e)
-        {
-            if (Directory.Exists(txtbx_webinstallpath.Text))
-            {
-                App.ViewModel.WebServerInstallPath = txtbx_webinstallpath.Text;
-                Close();
-            }
-            else if(txtbx_webinstallpath.Text == "") Close();
-            else MessageBox.Show("Не существующая папка");
         }
 
         private void btn_browsepath_Click(object sender, RoutedEventArgs e)
@@ -43,8 +32,22 @@ namespace Installer
 
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                txtbx_webinstallpath.Text = folderDialog.SelectedPath;
+                txtbox_path_Neo4j.Text = folderDialog.SelectedPath;
             }
+        }
+
+        private void btn_OK_Click(object sender, RoutedEventArgs e)
+        {
+            try 
+            {
+                App.ViewModel.Neo4jInstallPath = txtbox_path_Neo4j.Text;
+                Close();
+            }
+            catch(DirectoryNotFoundException ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
+            if (txtbox_path_Neo4j.Text == "") Close();
         }
     }
 }

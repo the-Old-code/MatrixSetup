@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,7 +20,7 @@ namespace Installer
     {
         private static InstallUnit erlangInstall;//установка Erlang
         private static InstallUnit rabbitInstall;//установка Rabbit
-        private static InstallUnit rabbitServiceRemove;//Перрезапуск сервиса Rabbit
+        private static InstallUnit rabbitServiceRemove;//Перезапуск сервиса Rabbit
         private static InstallUnit rabbitServiceInstall;// Перезапуск сервиса Rabbit
         private static InstallUnit startRabbitService;
         private static InstallUnit rabbitPluginsEnable;//Включение плагина rabbit
@@ -76,6 +77,14 @@ namespace Installer
             MsSQL,
             PostgreSQL,
             SQLite
+        }
+        private enum InstallPathType 
+        {
+            neo4j,
+            webserver,
+            pollserver,
+            checkserver,
+            shedulerserver,
         }
         #region DistroFile&DirectoriesNames
         /// <summary>
@@ -197,7 +206,7 @@ namespace Installer
         {
             set
             {
-                neo4jInstallPath = value + @"\" + Neo4jDirectoryName;
+                SetInstallPath(InstallPathType.neo4j, value);
             }
             get
             {
@@ -215,7 +224,7 @@ namespace Installer
 
                     return neo4jInstallPath;
                 }
-                else return Neo4jInstallPath;
+                else return neo4jInstallPath;
 
             }
         }
@@ -226,17 +235,11 @@ namespace Installer
         {
             set
             {
-                webServerInstallPath = value + @"\" + WebServerDirectoryName;
+                SetInstallPath(InstallPathType.webserver, value);
             }
             get
             {
-                if (webServerInstallPath == default)
-                {
-                    webServerInstallPath = SystemProgramFilesFolder + @"\Matrix\" + WebServerDirectoryName;//по умлочанию web server устанваливается в Program Files
-                    return webServerInstallPath;
-                }
-                else return webServerInstallPath;
-
+                return GetInstallPath(InstallPathType.webserver);
             }
         }
         /// <summary>
@@ -246,16 +249,11 @@ namespace Installer
         {
             set 
             {
-                pollServerInstallPath = value + @"\" + PollServerDirectoryName;
+                SetInstallPath(InstallPathType.pollserver, value);
             }
             get 
             {
-                if (pollServerInstallPath == default)
-                {
-                    pollServerInstallPath = SystemProgramFilesFolder + @"\Matrix\" + PollServerDirectoryName;//по умлочанию poll server устанваливается в Program Files
-                    return pollServerInstallPath;
-                }
-                else return pollServerInstallPath;
+                return GetInstallPath(InstallPathType.pollserver);
             }
         }
         /// <summary>
@@ -265,16 +263,11 @@ namespace Installer
         {
             set
             {
-                checkServerInstallPath = value + @"\" + CheckServerDirectoryName;
+                SetInstallPath(InstallPathType.checkserver, value);
             }
             get
             {
-                if (checkServerInstallPath == default)
-                {
-                    checkServerInstallPath = SystemProgramFilesFolder + @"\Matrix\" + CheckServerDirectoryName;//по умлочанию poll server устанваливается в Program Files
-                    return checkServerInstallPath;
-                }
-                else return checkServerInstallPath;
+                return GetInstallPath(InstallPathType.checkserver);
             }
         }
         /// <summary>
@@ -284,16 +277,11 @@ namespace Installer
         {
             set
             {
-                shedulerServerInstallPath = value + @"\" + ShedulerServerDirectoryName;
+                SetInstallPath(InstallPathType.shedulerserver, value);
             }
             get
             {
-                if (shedulerServerInstallPath == default)
-                {
-                    shedulerServerInstallPath = SystemProgramFilesFolder + @"\Matrix\" + ShedulerServerDirectoryName;//по умлочанию poll server устанваливается в Program Files
-                    return shedulerServerInstallPath;
-                }
-                else return shedulerServerInstallPath;
+                return GetInstallPath(InstallPathType.shedulerserver);
             }
         }
         #endregion
@@ -551,6 +539,63 @@ namespace Installer
                     ServersAppsettings.InitConnectionStrings(WebServerConnectionString, "System.Data.SqlClient");
                     break;
             }
+        }
+        private static void SetInstallPath(InstallPathType type, string path)
+        {
+            if (ValidatePath(path)) 
+            {
+                switch(type) 
+                {
+                    case InstallPathType.webserver:
+                        webServerInstallPath = path + @"\" + WebServerDirectoryName;
+                        break;
+                    case InstallPathType.neo4j:
+                        neo4jInstallPath = path + @"\" + Neo4jDirectoryName;
+                        break;
+                    case InstallPathType.pollserver:
+                        pollServerInstallPath = path + @"\" + PollServerDirectoryName;
+                        break;
+                    case InstallPathType.checkserver:
+                        checkServerInstallPath = path + @"\" + CheckServerDirectoryName;
+                        break;
+                    case InstallPathType.shedulerserver:
+                        shedulerServerInstallPath = path + @"\" + ShedulerServerDirectoryName;
+                        break;
+                    default: throw new NotImplementedException();
+                }
+            }
+
+        }
+        private static string GetInstallPath(InstallPathType type) 
+        {
+            string path = type switch 
+            {
+                InstallPathType.webserver => webServerInstallPath,
+                InstallPathType.pollserver => pollServerInstallPath,
+                InstallPathType.checkserver => checkServerInstallPath,
+                InstallPathType.shedulerserver => shedulerServerInstallPath
+            };
+            if (path == default) 
+            {
+                switch (type) 
+                {
+                    case InstallPathType.webserver: return SystemProgramFilesFolder + @"\Matrix\" + WebServerDirectoryName;//по умлочанию web server устанваливается в Program Files
+                    case InstallPathType.pollserver: return SystemProgramFilesFolder + @"\Matrix\" + PollServerDirectoryName;//по умлочанию poll server устанваливается в Program Files
+                    case InstallPathType.checkserver: return SystemProgramFilesFolder + @"\Matrix\" + CheckServerDirectoryName;//по умлочанию check server устанваливается в Program Files
+                    case InstallPathType.shedulerserver: return SystemProgramFilesFolder + @"\Matrix\" + ShedulerServerDirectoryName; //по умлочанию sheduler server устанваливается в Program Files
+                    default: throw new NotImplementedException();
+                }
+            }
+            else return path;
+        }
+        private static bool ValidatePath(string path) 
+        {
+            if (path == "") throw new DirectoryNotFoundException("Пустая строка");
+            else if (!Directory.Exists(path))
+            {
+                throw new DirectoryNotFoundException("Не существующая папка");
+            }
+            return true;
         }
     }
 }
