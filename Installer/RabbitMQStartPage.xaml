@@ -68,16 +68,18 @@
             </CheckBox.Style>
         </CheckBox>
         <CheckBox x:Name="chkbox_Poll" Content="Poll Server" HorizontalAlignment="Left" Margin="463,0,0,97" Grid.Row="2" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked" Height="15" VerticalAlignment="Bottom"/>
-        <CheckBox x:Name="chkbox_Check" Content="Check Server" HorizontalAlignment="Left" Margin="463,33,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked"/>
-        <CheckBox x:Name="chkbox_Sheduler" Content="Sheduler Server" HorizontalAlignment="Left" Margin="463,52,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked"/>
-        <CheckBox x:Name="chkbox_Neo4j" Content="Neo4j" HorizontalAlignment="Left" Margin="463,73,0,0" VerticalAlignment="Top" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked" Grid.Row="2" />
-        <TextBlock x:Name="Neo4j_Install_Path" Text="{Binding Neo4jInstallPath}" HorizontalAlignment="Left" Margin="641,72,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="523,72,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="223,67,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding WebServerInstallPath}" VerticalAlignment="Top"/>
+        <CheckBox x:Name="chkbox_Check" Content="Check Server" HorizontalAlignment="Left" Margin="463,0,0,78" Grid.Row="2" VerticalAlignment="Bottom" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked"/>
+        <CheckBox x:Name="chkbox_Sheduler" Content="Sheduler Server" HorizontalAlignment="Left" Margin="463,0,0,58" Grid.Row="2" VerticalAlignment="Bottom" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked"/>
+        <CheckBox x:Name="chkbox_Neo4j" Content="Neo4j" HorizontalAlignment="Left" Margin="463,0,0,37" VerticalAlignment="Bottom" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked" Grid.Row="2" />
+        <TextBlock x:Name="Neo4j_Install_Path" Text="{Binding Neo4jInstallPath}" HorizontalAlignment="Left" Margin="641,0,0,37" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="489"/>
+        <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="523,0,0,37" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
+        <TextBlock HorizontalAlignment="Left" Margin="215,64,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding WebServerInstallPath}" VerticalAlignment="Top" Width="243" Height="28"/>
         <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="97,64,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="550,12,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="570,52,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="556,33,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="550,0,0,97" Grid.Row="2" TextWrapping="Wrap" Height="16" VerticalAlignment="Bottom"/>
+        <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="570,0,0,58" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
+        <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="556,0,0,77" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="Web_Server_Connection_String" HorizontalAlignment="Left" Margin="237,92,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding WebServerConnectionString}" VerticalAlignment="Top" Width="893"/>
+        <TextBlock HorizontalAlignment="Left" Margin="119,92,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text=" "/><Run Language="ru-ru" Text="Строка соединения"/><Run Text=":"/></TextBlock>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>

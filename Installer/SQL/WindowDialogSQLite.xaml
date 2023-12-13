@@ -8,10 +8,11 @@
         Title="WindowDialogSQLite" Height="135" Width="540" ResizeMode="NoResize">
     <Grid HorizontalAlignment="Center" Width="540" Height="120" VerticalAlignment="Center">
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="235,5,0,0" Text="SQLite" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Normal" FontSize="22"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,39,0,0" Text="Имя сервера" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtbox_dataSource" HorizontalAlignment="Left" Margin="86,39,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="383"/>
-        <Button x:Name="btn_OK" Content="ОК" Margin="194,67,194,17" Click="btn_OK_Click">
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,60,0,0" Text="Имя сервера" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtbox_dataSource" HorizontalAlignment="Left" Margin="86,60,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="383"/>
+        <Button x:Name="btn_OK" Content="ОК" Margin="194,83,194,17" Click="btn_OK_Click">
 
         </Button>
+        <TextBlock HorizontalAlignment="Left" Margin="86,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="307"><Run Language="ru-ru" Text="Укажите имя базы данных вместе с расширением ."/><Run Text="db"/></TextBlock>
     </Grid>
 </Window>

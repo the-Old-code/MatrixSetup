@@ -2,11 +2,25 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using static Installer.InstallPropertiesViewModel;
 
 namespace Installer
 {
     public class InstallPropertiesViewModel : INotifyPropertyChanged 
     {
+        public struct ConnectionString 
+        {
+            public InstallScenario.ConnectionStringsType type;
+            public string connectionString;
+        }
+        public ConnectionString WebServerConnectionConfig 
+        {
+            set 
+            {
+                InstallScenario.InitializeWebServerConnectionStrings(value.type, value.connectionString);
+                OnPropertyChanged(nameof(WebServerConnectionString));
+            }
+        }
         public string WebServerConnectionString 
         {
             get 

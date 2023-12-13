@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static Installer.InstallPropertiesViewModel;
 
 namespace Installer
 {
@@ -26,14 +27,22 @@ namespace Installer
 
         private void btn_OK_Click(object sender, RoutedEventArgs e)
         {
-            if (txtbox_dataSource.Text != "") SetJsonConnectionStrings(txtbox_dataSource.Text);
+            if (txtbox_dataSource.Text != "") 
+            {
+                if (txtbox_dataSource.Text.EndsWith(".db"))
+                {
+                    SetJsonConnectionStrings(txtbox_dataSource.Text);
+                    
+                }
+                else MessageBox.Show("Имя не оканчивается на расширение .db");
+            }
             Close();
         }
 
         private void SetJsonConnectionStrings(string dataSource)
         {
-            string connectinString = "data source=" + dataSource +  ";";
-            InstallScenario.InitializeWebServerConnectionStrings(InstallScenario.ConnectionStringsType.SQLite, connectinString);
+            string connectionString = "data source=" + dataSource +  ";";
+            App.ViewModel.WebServerConnectionConfig = new InstallPropertiesViewModel.ConnectionString { type = InstallScenario.ConnectionStringsType.SQLite, connectionString = connectionString };
         }
     }
 }

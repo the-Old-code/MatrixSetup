@@ -35,13 +35,15 @@ namespace Installer
         private void SetJsonConnectionStrings(string dataSource, string initialCatalog,string integrSecurity,string userID, string password)
         {
             string connectionString = "data source=" + dataSource + ";initial catalog=" + initialCatalog + "; Integrated Security=" + integrSecurity + "; User ID=" + userID + "; Password=" + password + ";";
-            InstallScenario.InitializeWebServerConnectionStrings(InstallScenario.ConnectionStringsType.MsSQL, connectionString);
+            //InstallScenario.InitializeWebServerConnectionStrings(InstallScenario.ConnectionStringsType.MsSQL, connectionString);
+            App.ViewModel.WebServerConnectionConfig = new InstallPropertiesViewModel.ConnectionString { type = InstallScenario.ConnectionStringsType.MsSQL, connectionString = connectionString };
         }
 
         private void SetJsonConnectionStrings(string dataSource, string initialCatalog, string integrSecurity)
         {
             string connectionString = "data source=" + dataSource + ";initial catalog=" + initialCatalog + "; Integrated Security=" + integrSecurity + ";";
-            InstallScenario.InitializeWebServerConnectionStrings(InstallScenario.ConnectionStringsType.MsSQL, connectionString);
+            //InstallScenario.InitializeWebServerConnectionStrings(InstallScenario.ConnectionStringsType.MsSQL, connectionString);
+            App.ViewModel.WebServerConnectionConfig = new InstallPropertiesViewModel.ConnectionString { type = InstallScenario.ConnectionStringsType.MsSQL, connectionString = connectionString };
         }
 
         private void btn_save_Click(object sender, RoutedEventArgs e)

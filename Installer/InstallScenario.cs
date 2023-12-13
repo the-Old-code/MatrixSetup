@@ -38,7 +38,16 @@ namespace Installer
         private static string shedulerServerInstallPath;
         private static string webServerConnectionStringConfig;
         private static string webServerDomain;
+        private static string defaultConnctionString = "data source=matrix.db;";
         private static ConnectionStringsType connectionStringsType;
+        public static ConnectionStringsType WebServerConnectionStringsType
+        {
+            get
+            {
+                if (connectionStringsType == default) return ConnectionStringsType.SQLite;
+                else return connectionStringsType;
+            }
+        }
 
         public static ProgressBarHandler Notify;
         /// <summary>
@@ -309,7 +318,7 @@ namespace Installer
         /// <summary>
         /// Путь к установочнуому дистрибутиву Poll Server в resfiles
         /// </summary>
-        private static string PollServerDistroPath 
+        public static string PollServerDistroPath 
         {
             get
             {
@@ -319,7 +328,7 @@ namespace Installer
         /// <summary>
         /// Путь к установочнуому дистрибутиву Check Server в resfiles
         /// </summary>
-        private static string CheckServerDistroPath 
+        public static string CheckServerDistroPath 
         {
             get
             {
@@ -329,11 +338,34 @@ namespace Installer
         /// <summary>
         /// Путь к установочнуому дистрибутиву Sheduler Server в resfiles
         /// </summary>
-        private static string ShedulerServerDistroPath 
+        public static string ShedulerServerDistroPath 
         {
             get
             {
                 return ResfilesPath + @"\" + ShedulerServerDirectoryName;
+            }
+        }
+        #endregion
+        #region ServerConfigPaths
+        public static string WebServerConfigPath 
+        {
+            get 
+            {
+                return WebServerDistroPath + @"\appsettings.json";
+            }
+        }
+        public static string PollServerConfigPath
+        {
+            get
+            {
+                return PollServerDistroPath + @"\Matrix.PollServer.exe.config";
+            }
+        }
+        public static string CheckServerConfigPath
+        {
+            get
+            {
+                return CheckServerDistroPath + @"\Matrix.CheckServer.exe.config";
             }
         }
         #endregion
@@ -342,7 +374,7 @@ namespace Installer
         {
             get 
             {
-                if (webServerConnectionStringConfig == default) return "Matrix.db";
+                if (webServerConnectionStringConfig == default) return defaultConnctionString;
                 return webServerConnectionStringConfig;
             }
         }
@@ -530,13 +562,13 @@ namespace Installer
             switch (connectionStringsType) 
             {
                 case ConnectionStringsType.PostgreSQL:
-                    ServersAppsettings.InitConnectionStrings(WebServerConnectionString, "Npgsql");
+                    ServersConfig.InitConnectionStrings(WebServerConnectionString, "Npgsql");
                     break;
                 case ConnectionStringsType.SQLite:
-                    ServersAppsettings.InitConnectionStrings(WebServerConnectionString, "sqlite");
+                    ServersConfig.InitConnectionStrings(WebServerConnectionString, "sqlite");
                     break;
                 case ConnectionStringsType.MsSQL:
-                    ServersAppsettings.InitConnectionStrings(WebServerConnectionString, "System.Data.SqlClient");
+                    ServersConfig.InitConnectionStrings(WebServerConnectionString, "System.Data.SqlClient");
                     break;
             }
         }
@@ -573,7 +605,8 @@ namespace Installer
                 InstallPathType.webserver => webServerInstallPath,
                 InstallPathType.pollserver => pollServerInstallPath,
                 InstallPathType.checkserver => checkServerInstallPath,
-                InstallPathType.shedulerserver => shedulerServerInstallPath
+                InstallPathType.shedulerserver => shedulerServerInstallPath,
+                _=> throw new NotImplementedException()
             };
             if (path == default) 
             {

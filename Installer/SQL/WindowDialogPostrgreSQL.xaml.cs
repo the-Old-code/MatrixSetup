@@ -27,7 +27,8 @@ namespace Installer
         private void SetJsonConnectionStrings(string Server, string Port, string User_ID, string Password, string Database)
         {
             string connectionString = "Server=" + Server + " ;Port=" + Port + " ; User Id=" + User_ID + " ; Password=" + Password + " ; Database=" + Database + ";";
-            InstallScenario.InitializeWebServerConnectionStrings(InstallScenario.ConnectionStringsType.PostgreSQL, connectionString);
+            //InstallScenario.InitializeWebServerConnectionStrings(InstallScenario.ConnectionStringsType.PostgreSQL, connectionString);
+            App.ViewModel.WebServerConnectionConfig = new InstallPropertiesViewModel.ConnectionString { type = InstallScenario.ConnectionStringsType.PostgreSQL, connectionString = connectionString };
         }
 
         private void btn_OK_Click(object sender, RoutedEventArgs e)
