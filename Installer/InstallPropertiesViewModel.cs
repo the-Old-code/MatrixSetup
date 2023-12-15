@@ -88,7 +88,18 @@ namespace Installer
                 OnPropertyChanged(nameof(ShedulerServerInstallPath));
             }
         }
-
+        public string WebServerUrl
+        {
+            get
+            {
+                return InstallScenario.WebServerUrl;
+            }
+            set
+            {
+                InstallScenario.WebServerUrl = value;
+                OnPropertyChanged(nameof(WebServerUrl));
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {

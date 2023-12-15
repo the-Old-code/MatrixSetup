@@ -120,5 +120,10 @@ namespace Installer
                 }
             }
         }
+
+        private void btn_Set_To_Default_Click(object sender, RoutedEventArgs e)
+        {
+            InstallScenario.SetDefaultInstallParameters();
+        }
     }
 }

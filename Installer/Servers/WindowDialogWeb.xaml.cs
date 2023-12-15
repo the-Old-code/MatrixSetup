@@ -28,13 +28,21 @@ namespace Installer
             try
             {
                 App.ViewModel.WebServerInstallPath = txtbx_webinstallpath.Text;
-                Close();
             }
             catch (DirectoryNotFoundException ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            if (txtbx_webinstallpath.Text == "") Close();
+            
+            try 
+            {
+                App.ViewModel.WebServerUrl = txtbx_web_Url.Text;
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            Close();
         }
 
         private void btn_browsepath_Click(object sender, RoutedEventArgs e)

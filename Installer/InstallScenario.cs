@@ -19,13 +19,13 @@ namespace Installer
     public static class InstallScenario
     {
         private static InstallUnit erlangInstall;//установка Erlang
-        private static InstallUnit rabbitInstall;//установка Rabbit
-        private static InstallUnit rabbitServiceRemove;//Перезапуск сервиса Rabbit
-        private static InstallUnit rabbitServiceInstall;// Перезапуск сервиса Rabbit
-        private static InstallUnit startRabbitService;
+        private static InstallUnit rabbitInstall;//установка RabbitMQ
+        private static InstallUnit rabbitServiceRemove;//Перезапуск сервиса RabbitMQ
+        private static InstallUnit rabbitServiceInstall;// Переустановка сервиса RabbitMQ
+        private static InstallUnit startRabbitService;//Запуск сервиса RabbitMQ
         private static InstallUnit rabbitPluginsEnable;//Включение плагина rabbit
         private static InstallUnit java;//установка Java
-        private static InstallUnit neo4j;//установка Neo4j через класс InstallUnit
+        private static InstallUnit neo4j;//установка Neo4j
         private static InstallUnit webServer;
         private static InstallUnit pollServer;
         private static InstallUnit checkServer;
@@ -36,9 +36,65 @@ namespace Installer
         private static string pollServerInstallPath;
         private static string checkServerInstallPath;
         private static string shedulerServerInstallPath;
-        private static string webServerConnectionStringConfig;
-        private static string webServerUrlConfig;
-        private static string defaultConnctionString = "data source=matrix.db;";
+        private static string webServerConnectionString;
+        private static string webServerUrl;
+        #region DefaultServerConfigValues
+        private static string defaultConnectionString = "data source=matrix.db;";
+        private static string defaultWebServerUrl = "localhost:8080";
+        private static string DefaultWebServerInstallPath 
+        {
+            get 
+            {
+                return SystemProgramFilesFolder + @"\Matrix\" + WebServerDirectoryName; ;
+            }
+        } 
+        private static string DefaultPollServerInstallPath
+        {
+            get
+            {
+                return SystemProgramFilesFolder + @"\Matrix\" + PollServerDirectoryName;
+            }
+        }
+        private static string DefaultCheckServerInstallPath
+        {
+            get 
+            {
+                return SystemProgramFilesFolder + @"\Matrix\" + CheckServerDirectoryName;
+            }
+        }
+        private static string DefaultShedulerServerInstallPath
+        {
+            get
+            {
+                return SystemProgramFilesFolder + @"\Matrix\" + ShedulerServerDirectoryName;
+            }
+        }
+        private static string DefaultNeo4jPath 
+        {
+            get 
+            {
+                List<DriveInfo> avaible = new List<DriveInfo>();
+                DriveInfo[] d = DriveInfo.GetDrives();
+                string sysdrive = Path.GetPathRoot(Environment.SystemDirectory);
+                foreach (DriveInfo drive in d)
+                {
+                    if ((drive.Name != sysdrive) && (drive.DriveType == DriveType.Fixed)) avaible.Add(drive);//получение всех дисков, кроме системных
+                }
+                if (avaible.Count == 0) return SystemProgramFilesFolder + @"\Matrix\" + Neo4jDirectoryName;
+                else return avaible[0].ToString() + @"\Matrix\" + Neo4jDirectoryName;
+            }
+        }
+        public static void SetDefaultInstallParameters() 
+        {
+            webServerConnectionString = defaultConnectionString;
+            webServerUrl = defaultWebServerUrl;
+            webServerInstallPath = DefaultWebServerInstallPath;
+            pollServerInstallPath = DefaultPollServerInstallPath;
+            checkServerInstallPath = DefaultCheckServerInstallPath;
+            shedulerServerInstallPath = DefaultShedulerServerInstallPath;
+            neo4jInstallPath = DefaultNeo4jPath;
+        }
+        #endregion
         private static ConnectionStringsType connectionStringsType;
         public static ConnectionStringsType WebServerConnectionStringsType
         {
@@ -221,17 +277,7 @@ namespace Installer
             {
                 if (neo4jInstallPath == default) //по умолчанию корневая папка несистемного или Program Files, если только один диск(системный) на машине
                 {
-                    List<DriveInfo> avaible = new List<DriveInfo>();
-                    DriveInfo[] d = DriveInfo.GetDrives();
-                    string sysdrive = Path.GetPathRoot(Environment.SystemDirectory);
-                    foreach (DriveInfo drive in d)
-                    {
-                        if ((drive.Name != sysdrive) && (drive.DriveType == DriveType.Fixed)) avaible.Add(drive);//получение всех дисков, кроме системных
-                    }
-                    if (avaible.Count == 0) neo4jInstallPath = SystemProgramFilesFolder + @"\Matrix\" + Neo4jDirectoryName;
-                    else neo4jInstallPath = avaible[0].ToString() + @"\Matrix\" + Neo4jDirectoryName;
-
-                    return neo4jInstallPath;
+                    return DefaultNeo4jPath;
                 }
                 else return neo4jInstallPath;
 
@@ -374,14 +420,14 @@ namespace Installer
         {
             get
             {
-                if (webServerConnectionStringConfig == default) return defaultConnctionString;
-                return webServerConnectionStringConfig;
+                if (webServerConnectionString == default) return defaultConnectionString;
+                return webServerConnectionString;
             }
         }
         public static void InitializeWebServerConnectionStrings(ConnectionStringsType type, string connectionString)
         {
             connectionStringsType = type;
-            webServerConnectionStringConfig = connectionString;
+            webServerConnectionString = connectionString;
         }
         public static string WebServerUrl
         {
@@ -391,8 +437,8 @@ namespace Installer
             }
             get
             {
-                if (webServerUrlConfig == default) return "localhost:8081";
-                else return webServerUrlConfig;
+                if (webServerUrl == default) return defaultWebServerUrl;
+                else return webServerUrl;
             }
         }
 
@@ -537,7 +583,6 @@ namespace Installer
                         neo4j.ExecuteInstallationScript();
                         break;
                     case InstallComponent.web:
-                        InitWebServerConnectionString();
                         webServer = new InstallUnit(new List<string> { @"cd " + WebServerDistroPath, @"xcopy %cd%\ " + @"""" + WebServerInstallPath + @"""" + " /s /q" }, "Установка Web Server");
                         webServer.ExecuteInstallationScript();
                         break;
@@ -571,7 +616,7 @@ namespace Installer
             InstallSelected(toReinstall);
             if (Check().Count != MustInstalled.Count) Reinstall();
         }
-        private static void InitWebServerConnectionString() 
+        private static void InitWebServerConnectionStringConfig()
         {
             switch (connectionStringsType) 
             {
@@ -588,8 +633,8 @@ namespace Installer
         }
         private static void InitAllServersConfig() 
         {
-            InitWebServerConnectionString();
-            ServersConfig.InitAllServersUrlConfig(webServerUrlConfig);
+            InitWebServerConnectionStringConfig();
+            ServersConfig.InitAllServersUrlConfig(webServerUrl);
         }
         private static void SetInstallPath(InstallPathType type, string path)
         {
@@ -617,7 +662,7 @@ namespace Installer
         private static void SetWebServerUrl(string url) 
         {
             ValidateUrl(url);
-            webServerUrlConfig = url;
+            webServerUrl = url;
         }
         private static string GetInstallPath(InstallPathType type) 
         {
@@ -629,14 +674,14 @@ namespace Installer
                 InstallPathType.shedulerserver => shedulerServerInstallPath,
                 _=> throw new NotImplementedException()
             };
-            if (path == default) 
+            if (path == default)
             {
                 switch (type) 
                 {
-                    case InstallPathType.webserver: return SystemProgramFilesFolder + @"\Matrix\" + WebServerDirectoryName;//по умлочанию web server устанваливается в Program Files
-                    case InstallPathType.pollserver: return SystemProgramFilesFolder + @"\Matrix\" + PollServerDirectoryName;//по умлочанию poll server устанваливается в Program Files
-                    case InstallPathType.checkserver: return SystemProgramFilesFolder + @"\Matrix\" + CheckServerDirectoryName;//по умлочанию check server устанваливается в Program Files
-                    case InstallPathType.shedulerserver: return SystemProgramFilesFolder + @"\Matrix\" + ShedulerServerDirectoryName; //по умлочанию sheduler server устанваливается в Program Files
+                    case InstallPathType.webserver: return DefaultWebServerInstallPath;//по умлочанию web server устанваливается в Program Files
+                    case InstallPathType.pollserver: return DefaultPollServerInstallPath;//по умлочанию poll server устанваливается в Program Files
+                    case InstallPathType.checkserver: return DefaultCheckServerInstallPath;//по умлочанию check server устанваливается в Program Files
+                    case InstallPathType.shedulerserver: return DefaultShedulerServerInstallPath; //по умлочанию sheduler server устанваливается в Program Files
                     default: throw new NotImplementedException();
                 }
             }
@@ -649,9 +694,8 @@ namespace Installer
         /// <exception cref="DirectoryNotFoundException"></exception>
         private static void ValidatePath(string path) 
         {
-            if (path == "") throw new DirectoryNotFoundException("Пустая строка");
-            //else if(Directory.) TODO сделать проверку на валидность пути в общем, нужно позваолить создавать свои папки, а не работать только с существующими
-            else if (!Directory.Exists(path))
+            //TODO сделать проверку на валидность пути в общем, нужно позваолить создавать свои папки, а не работать только с существующими
+            if (!Directory.Exists(path))
             {
                 throw new DirectoryNotFoundException("Не существующая папка");
             }
