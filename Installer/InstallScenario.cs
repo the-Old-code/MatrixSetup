@@ -160,8 +160,8 @@ namespace Installer
         {
             get
             {
-                List<string> files = new List<string>(Directory.EnumerateFiles(ResfilesPath, "rabbitmq-server*", SearchOption.TopDirectoryOnly));
-                return Path.GetFileName(files[0]);
+                List<string> rabbitmqFileNames = new List<string>(Directory.EnumerateFiles(ResfilesPath, "rabbitmq-server*", SearchOption.TopDirectoryOnly));
+                return Path.GetFileName(rabbitmqFileNames.FirstOrDefault());
             }
         }
         /// <summary>
@@ -172,8 +172,8 @@ namespace Installer
         {
             get
             {
-                List<string> files = new List<string>(Directory.EnumerateFiles(ResfilesPath, "otp_win*", SearchOption.TopDirectoryOnly));
-                return Path.GetFileName(files[0]);
+                List<string> erlangFileNames = new List<string>(Directory.EnumerateFiles(ResfilesPath, "otp_win*", SearchOption.TopDirectoryOnly));
+                return Path.GetFileName(erlangFileNames.FirstOrDefault());
             }
         }
         /// <summary>
@@ -184,7 +184,8 @@ namespace Installer
         {
             get 
             {
-                return "web4.4.6";
+                List<string> webServerDirectoryNames = new List<string>(Directory.EnumerateDirectories(ResfilesPath, "web*", SearchOption.TopDirectoryOnly));
+                return Path.GetFileName(webServerDirectoryNames.FirstOrDefault());
             }
         }
         /// <summary>
@@ -195,7 +196,8 @@ namespace Installer
         {
             get 
             {
-                return "neo4j-community-3.2.1";
+                List<string> neo4jDirectoryNames = new List<string>(Directory.EnumerateDirectories(ResfilesPath, "neo4j-community*", SearchOption.TopDirectoryOnly));
+                return Path.GetFileName(neo4jDirectoryNames.FirstOrDefault());
             }
         }
         /// <summary>
@@ -206,7 +208,8 @@ namespace Installer
         {
             get 
             {
-                return "poll";
+                List<string> pollServerDirectoryNames = new List<string>(Directory.EnumerateDirectories(ResfilesPath, "poll*", SearchOption.TopDirectoryOnly));
+                return Path.GetFileName(pollServerDirectoryNames.FirstOrDefault());
             }
         }
         /// <summary>
@@ -217,7 +220,8 @@ namespace Installer
         {
             get 
             {
-                return "check";
+                List<string> checkServerDirectoryNames = new List<string>(Directory.EnumerateDirectories(ResfilesPath, "check*", SearchOption.TopDirectoryOnly));
+                return Path.GetFileName(checkServerDirectoryNames.FirstOrDefault());
             }
         }
         /// <summary>
@@ -228,7 +232,8 @@ namespace Installer
         {
             get 
             {
-                return "sheduler";
+                List<string> shedulerServerDirectoryNames = new List<string>(Directory.EnumerateDirectories(ResfilesPath, "sheduler*", SearchOption.TopDirectoryOnly));
+                return Path.GetFileName(shedulerServerDirectoryNames.FirstOrDefault());
             }
         }
         #endregion
