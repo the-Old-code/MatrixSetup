@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using System.Xml.Linq;
 using System.Linq;
 using System.DirectoryServices.ActiveDirectory;
+using System.Threading;
+using System;
 
 namespace Installer
 {
@@ -26,46 +28,56 @@ namespace Installer
         /// <summary>
         /// Инициализация домена WebServer в его конфигурационном файле и иинциализация домена WebServer в конфигурационных файлах других серверов
         /// </summary>
-        public static void InitServersDomain(string domain) 
+        public static void InitAllServersUrlConfig(string webServerUrl) 
         {
-            SetWebServerApsettings(domain);
-            SetServersConfig(domain);
+            SetWebServerApsettingsUrl(webServerUrl);
+            SetOtherServersURLConfig(webServerUrl);
         }
         /// <summary>
         /// Меняет поле http-binding в appsettings.json web server
         /// </summary>
-        /// <param name="domain"></param>
-        private static void SetWebServerApsettings(string domain) 
+        private static void SetWebServerApsettingsUrl(string webServerUrl) 
         {
             string jsonString = File.ReadAllText(InstallScenario.WebServerDistroPath + @"\appsettings.json");
             dynamic jsonObj = JsonConvert.DeserializeObject(jsonString);
-            jsonObj["AppSettings"]["http-binding"] = domain;
+            jsonObj["AppSettings"]["http-binding"] = webServerUrl;
             string output = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
             File.WriteAllText(InstallScenario.WebServerDistroPath + @"\appsettings.json", output);
         }
         /// <summary>
-        /// Меняет XML config в poll sheck sheduler
+        /// Сервера, в config файлах которых нужно поменять ServerUrl
         /// </summary>
-        private static void SetServersConfig(string domain) 
+        enum ServersForURLConfig { poll, check };
+        /// <summary>
+        /// Меняет XML config в poll sheck sheduler
+        /// Иинциализация домена WebServer в конфигурационных файлах других серверов
+        /// </summary>
+        private static void SetOtherServersURLConfig(string webServerUrl) 
         {
-            XDocument pollServerConfig = XDocument.Load(InstallScenario.PollServerConfigPath);
-            XDocument checkServerConfig = XDocument.Load(InstallScenario.CheckServerConfigPath);
-            var ServerUrlPoll = pollServerConfig?
+            Type serversForURLConfig = typeof(ServersForURLConfig);
+            XDocument ServerConfig;
+            string configPath = default;
+            foreach (var server in Enum.GetNames(serversForURLConfig)) 
+            {
+                switch (server) 
+                {
+                    case nameof(ServersForURLConfig.poll):
+                        configPath = InstallScenario.PollServerConfigPath;
+                        break;
+                    case nameof(ServersForURLConfig.check):
+                        configPath = InstallScenario.CheckServerConfigPath;
+                        break;
+                    default: throw new NotImplementedException();
+                }
+            }
+            ServerConfig = XDocument.Load(configPath);
+            var ServerUrlAttribute = ServerConfig?
                 .Element("configuration")?
                 .Element("appSettings")?
                 .Elements("add")
                 .FirstOrDefault(p => p.Attribute("key")?.Value == "serverUrl");
-            ServerUrlPoll.Attribute("value").Value = domain;
-
-            var ServerUrlCheck = pollServerConfig?
-                .Element("configuration")?
-                .Element("appSettings")?
-                .Elements("add")
-                .FirstOrDefault(p => p.Attribute("key")?.Value == "serverUrl");
-            ServerUrlCheck.Attribute("value").Value = domain;
-
-            pollServerConfig.Save(InstallScenario.PollServerConfigPath);
-            checkServerConfig.Save(InstallScenario.CheckServerConfigPath);
+            ServerUrlAttribute.Attribute("value").Value = webServerUrl;
+            ServerConfig.Save(configPath);
         }
     }
 }

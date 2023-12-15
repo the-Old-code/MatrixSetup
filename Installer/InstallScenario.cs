@@ -37,7 +37,7 @@ namespace Installer
         private static string checkServerInstallPath;
         private static string shedulerServerInstallPath;
         private static string webServerConnectionStringConfig;
-        private static string webServerDomain;
+        private static string webServerUrlConfig;
         private static string defaultConnctionString = "data source=matrix.db;";
         private static ConnectionStringsType connectionStringsType;
         public static ConnectionStringsType WebServerConnectionStringsType
@@ -372,7 +372,7 @@ namespace Installer
         #region WebServerConfiguration
         public static string WebServerConnectionString 
         {
-            get 
+            get
             {
                 if (webServerConnectionStringConfig == default) return defaultConnctionString;
                 return webServerConnectionStringConfig;
@@ -383,6 +383,19 @@ namespace Installer
             connectionStringsType = type;
             webServerConnectionStringConfig = connectionString;
         }
+        public static string WebServerUrl
+        {
+            set 
+            {
+                SetWebServerUrl(value);
+            }
+            get
+            {
+                if (webServerUrlConfig == default) return "localhost:8081";
+                else return webServerUrlConfig;
+            }
+        }
+
         #endregion
 
         public static List<InstallComponent> MustInstalled = new List<InstallComponent>();
@@ -467,6 +480,7 @@ namespace Installer
         }
         public static void InstallSelected(List<InstallComponent> selected)
         {
+            InitAllServersConfig();
             InstallUnit.Notify = Notify;
             foreach (var select in selected)
             {
@@ -523,7 +537,7 @@ namespace Installer
                         neo4j.ExecuteInstallationScript();
                         break;
                     case InstallComponent.web:
-                        InitConnectionString();
+                        InitWebServerConnectionString();
                         webServer = new InstallUnit(new List<string> { @"cd " + WebServerDistroPath, @"xcopy %cd%\ " + @"""" + WebServerInstallPath + @"""" + " /s /q" }, "Установка Web Server");
                         webServer.ExecuteInstallationScript();
                         break;
@@ -557,7 +571,7 @@ namespace Installer
             InstallSelected(toReinstall);
             if (Check().Count != MustInstalled.Count) Reinstall();
         }
-        private static void InitConnectionString() 
+        private static void InitWebServerConnectionString() 
         {
             switch (connectionStringsType) 
             {
@@ -572,31 +586,38 @@ namespace Installer
                     break;
             }
         }
+        private static void InitAllServersConfig() 
+        {
+            InitWebServerConnectionString();
+            ServersConfig.InitAllServersUrlConfig(webServerUrlConfig);
+        }
         private static void SetInstallPath(InstallPathType type, string path)
         {
-            if (ValidatePath(path)) 
+            ValidatePath(path); 
+            switch(type) 
             {
-                switch(type) 
-                {
-                    case InstallPathType.webserver:
-                        webServerInstallPath = path + @"\" + WebServerDirectoryName;
-                        break;
-                    case InstallPathType.neo4j:
-                        neo4jInstallPath = path + @"\" + Neo4jDirectoryName;
-                        break;
-                    case InstallPathType.pollserver:
-                        pollServerInstallPath = path + @"\" + PollServerDirectoryName;
-                        break;
-                    case InstallPathType.checkserver:
-                        checkServerInstallPath = path + @"\" + CheckServerDirectoryName;
-                        break;
-                    case InstallPathType.shedulerserver:
-                        shedulerServerInstallPath = path + @"\" + ShedulerServerDirectoryName;
-                        break;
-                    default: throw new NotImplementedException();
-                }
+                case InstallPathType.webserver:
+                    webServerInstallPath = path + @"\" + WebServerDirectoryName;
+                    break;
+                case InstallPathType.neo4j:
+                    neo4jInstallPath = path + @"\" + Neo4jDirectoryName;
+                    break;
+                case InstallPathType.pollserver:
+                    pollServerInstallPath = path + @"\" + PollServerDirectoryName;
+                    break;
+                case InstallPathType.checkserver:
+                    checkServerInstallPath = path + @"\" + CheckServerDirectoryName;
+                    break;
+                case InstallPathType.shedulerserver:
+                    shedulerServerInstallPath = path + @"\" + ShedulerServerDirectoryName;
+                    break;
+                default: throw new NotImplementedException();
             }
-
+        }
+        private static void SetWebServerUrl(string url) 
+        {
+            ValidateUrl(url);
+            webServerUrlConfig = url;
         }
         private static string GetInstallPath(InstallPathType type) 
         {
@@ -621,14 +642,28 @@ namespace Installer
             }
             else return path;
         }
-        private static bool ValidatePath(string path) 
+        /// <summary>
+        /// Выбрасывает исключение, если путь является не существующим или некорректным
+        /// </summary>
+        /// <param name="path">Проверяемый путь</param>
+        /// <exception cref="DirectoryNotFoundException"></exception>
+        private static void ValidatePath(string path) 
         {
             if (path == "") throw new DirectoryNotFoundException("Пустая строка");
+            //else if(Directory.) TODO сделать проверку на валидность пути в общем, нужно позваолить создавать свои папки, а не работать только с существующими
             else if (!Directory.Exists(path))
             {
                 throw new DirectoryNotFoundException("Не существующая папка");
             }
-            return true;
+        }
+        /// <summary>
+        /// Выбрасывает исключение, если url является не некорректным
+        /// </summary>
+        /// <param name="url">Проверяемый url</param>
+        /// <exception cref="ArgumentException"></exception>
+        private static void ValidateUrl(string url) 
+        {
+            if (!Uri.IsWellFormedUriString(url, UriKind.Absolute)) throw new ArgumentException("Неверный url");
         }
     }
 }
