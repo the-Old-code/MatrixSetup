@@ -159,7 +159,7 @@ namespace Installer
         {
             get 
             {
-                return @"Matrix\";
+                return @"Matrix";
             }
         }
         /// <summary>
@@ -594,23 +594,23 @@ namespace Installer
                         Environment.SetEnvironmentVariable(name, newvalue, scope);*/
                         break;
                     case InstallComponent.neo4j:
-                        neo4j = new InstallUnit(new List<string> { @"cd " + Neo4jDistroPath, @"xcopy %cd%\ " + @"""" + Neo4jInstallPath + @"""" + " /s /q", "pushd " + Neo4jInstallPath + @"\bin", "neo4j install-service", "neo4j start" }, "Установка Neo4j");
+                        neo4j = new InstallUnit(new List<string> { @"cd " + Neo4jDistroPath, @"xcopy %cd%\ " + @"""" + Neo4jInstallPath + @"""" + " /s /q /i", "pushd " + Neo4jInstallPath + @"\bin", "neo4j install-service", "neo4j start" }, "Установка Neo4j");
                         neo4j.ExecuteInstallationScript();
                         break;
                     case InstallComponent.web:
-                        webServer = new InstallUnit(new List<string> { @"cd " + WebServerDistroPath, @"xcopy %cd%\ " + @"""" + WebServerInstallPath + @"""" + " /s /q" }, "Установка Web Server");
+                        webServer = new InstallUnit(new List<string> { @"cd " + WebServerDistroPath, @"xcopy %cd%\ " + @"""" + WebServerInstallPath + @"""" + " /s /q /i" }, "Установка Web Server");
                         webServer.ExecuteInstallationScript();
                         break;
                     case InstallComponent.poll:
-                        pollServer = new InstallUnit(new List<string> { @"cd " + PollServerDistroPath, @"xcopy %cd%\ " + @"""" + PollServerInstallPath + @"""" + " /s /q" }, "Установка Poll Server");
+                        pollServer = new InstallUnit(new List<string> { @"cd " + PollServerDistroPath, @"xcopy %cd%\ " + @"""" + PollServerInstallPath + @"""" + " /s /q /i" }, "Установка Poll Server");
                         pollServer.ExecuteInstallationScript();
                         break;
                     case InstallComponent.check:
-                        checkServer = new InstallUnit(new List<string> { @"cd " + CheckServerDistroPath, @"xcopy %cd%\ " + @"""" + CheckServerInstallPath + @"""" + " /s /q" }, "Установка Check Server");
+                        checkServer = new InstallUnit(new List<string> { @"cd " + CheckServerDistroPath, @"xcopy %cd%\ " + @"""" + CheckServerInstallPath + @"""" + " /s /q /i" }, "Установка Check Server");
                         checkServer.ExecuteInstallationScript();
                         break;
                     case InstallComponent.sheduler:
-                        shedulerServer = new InstallUnit(new List<string> { @"cd " + ShedulerServerDistroPath, @"xcopy %cd%\ " + @"""" + ShedulerServerInstallPath + @"""" + " /s /q" }, "Установка Sheduler Server");
+                        shedulerServer = new InstallUnit(new List<string> { @"cd " + ShedulerServerDistroPath, @"xcopy %cd%\ " + @"""" + ShedulerServerInstallPath + @"""" + " /s /q /i" }, "Установка Sheduler Server");
                         shedulerServer.ExecuteInstallationScript();
                         break;
                 }
@@ -657,19 +657,19 @@ namespace Installer
             switch(type) 
             {
                 case InstallPathType.webserver:
-                    webServerInstallPath = path + @"\" + MatrixDirectoryName + WebServerDirectoryName;
+                    webServerInstallPath = path + @"\" + MatrixDirectoryName + @"\" + WebServerDirectoryName;
                     break;
                 case InstallPathType.neo4j:
-                    neo4jInstallPath = path + @"\" + MatrixDirectoryName + Neo4jDirectoryName;
+                    neo4jInstallPath = path + @"\" + MatrixDirectoryName + @"\" + Neo4jDirectoryName;
                     break;
                 case InstallPathType.pollserver:
-                    pollServerInstallPath = path + @"\" + MatrixDirectoryName + PollServerDirectoryName;
+                    pollServerInstallPath = path + @"\" + MatrixDirectoryName + @"\" + PollServerDirectoryName;
                     break;
                 case InstallPathType.checkserver:
-                    checkServerInstallPath = path + @"\" + MatrixDirectoryName + CheckServerDirectoryName;
+                    checkServerInstallPath = path + @"\" +MatrixDirectoryName + @"\" + CheckServerDirectoryName;
                     break;
                 case InstallPathType.shedulerserver:
-                    shedulerServerInstallPath = path + @"\" + MatrixDirectoryName + ShedulerServerDirectoryName;
+                    shedulerServerInstallPath = path + @"\" + MatrixDirectoryName + @"\" + ShedulerServerDirectoryName;
                     break;
                 default: throw new NotImplementedException();
             }
