@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Installer.Servers;
 
 namespace Installer
 {
@@ -70,12 +71,18 @@ namespace Installer
                         break;
                     case "chkbox_Poll":
                         InstallScenario.AddInstall(InstallScenario.InstallComponent.poll);
+                        WindowDialogPoll poll = new WindowDialogPoll();
+                        poll.ShowDialog();
                         break;
                     case "chkbox_Check":
                         InstallScenario.AddInstall(InstallScenario.InstallComponent.check);
+                        WindowDialogCheck check = new WindowDialogCheck();
+                        check.ShowDialog();
                         break;
                     case "chkbox_Sheduler":
                         InstallScenario.AddInstall(InstallScenario.InstallComponent.sheduler);
+                        WindowDialogSheduler sheduler = new WindowDialogSheduler();
+                        sheduler.ShowDialog();
                         break;
                     case "chkbox_Neo4j":
                         InstallScenario.AddInstall(InstallScenario.InstallComponent.neo4j);
@@ -124,6 +131,7 @@ namespace Installer
         private void btn_Set_To_Default_Click(object sender, RoutedEventArgs e)
         {
             InstallScenario.SetDefaultInstallParameters();
+            App.ViewModel.UpdateProperties();
         }
     }
 }

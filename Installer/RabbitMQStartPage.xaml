@@ -55,7 +55,7 @@
 
 
         <Image x:Name="longLogoSystem_png" Margin="671,-12,10,118" Grid.RowSpan="2" Grid.Row="0" Stretch="Fill" Source="/longLogoSystem.png"/>
-        <CheckBox x:Name="chkbox_SQL" Content="SQL параметры" HorizontalAlignment="Left" Margin="13,93,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked">
+        <CheckBox x:Name="chkbox_SQL" Content="SQL параметры" HorizontalAlignment="Left" Margin="13,100,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="chkbox_Install_Checked" Unchecked="chkbox_Install_Unсhecked">
             <CheckBox.Style>
                 <Style TargetType="CheckBox">
                     <!--<Setter Property="IsChecked" Value="True"/>-->
@@ -78,11 +78,14 @@
         <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="550,0,0,97" Grid.Row="2" TextWrapping="Wrap" Height="16" VerticalAlignment="Bottom"/>
         <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="570,0,0,58" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
         <TextBlock Text=" Установочный путь:" HorizontalAlignment="Left" Margin="556,0,0,77" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
-        <TextBlock x:Name="Web_Server_Connection_String" HorizontalAlignment="Left" Margin="237,92,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding WebServerConnectionString}" VerticalAlignment="Top" Width="893"/>
-        <TextBlock HorizontalAlignment="Left" Margin="119,92,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text=" "/><Run Language="ru-ru" Text="Строка соединения"/><Run Text=":"/></TextBlock>
-        <TextBlock Text=" URL:" HorizontalAlignment="Left" Margin="97,80,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="Web_Server_Url" Text="{Binding WebServerUrl}" HorizontalAlignment="Left" Margin="129,80,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="81"/>
+        <TextBlock x:Name="Web_Server_Connection_String" HorizontalAlignment="Left" Margin="237,99,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding WebServerConnectionString}" VerticalAlignment="Top" Width="893"/>
+        <TextBlock HorizontalAlignment="Left" Margin="119,99,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text=" "/><Run Language="ru-ru" Text="Строка соединения"/><Run Text=":"/></TextBlock>
+        <TextBlock Text=" URL:" HorizontalAlignment="Left" Margin="97,83,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="Web_Server_Url" Text="{Binding WebServerUrl}" HorizontalAlignment="Left" Margin="129,83,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="81"/>
         <Button x:Name="btn_Set_To_Default" Content="Задать настройки по умолчанию" HorizontalAlignment="Left" Margin="422,3,0,0" Grid.Row="3" VerticalAlignment="Top" Width="190" Height="41" Click="btn_Set_To_Default_Click"/>
+        <TextBlock x:Name="Poll_Server_Install_Path" HorizontalAlignment="Left" Margin="668,0,0,98" Grid.Row="2" TextWrapping="Wrap" Text="{Binding PollServerInstallPath}" VerticalAlignment="Bottom" Width="455" Height="14"/>
+        <TextBlock x:Name="Check_Server_Install_Path" HorizontalAlignment="Left" Margin="674,0,0,77" Grid.Row="2" TextWrapping="Wrap" Text="{Binding CheckServerInstallPath}" VerticalAlignment="Bottom" Width="449" Height="14"/>
+        <TextBlock x:Name="Sheduler_Server_Install_Path" HorizontalAlignment="Left" Margin="688,0,0,59" Grid.Row="2" TextWrapping="Wrap" Text="{Binding ShedulerServerInstallPath}" Width="435" Height="14" VerticalAlignment="Bottom"/>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>

@@ -81,7 +81,7 @@ namespace Installer
                     if ((drive.Name != sysdrive) && (drive.DriveType == DriveType.Fixed)) avaible.Add(drive);//получение всех дисков, кроме системных
                 }
                 if (avaible.Count == 0) return SystemProgramFilesFolder + @"\Matrix\" + Neo4jDirectoryName;
-                else return avaible[0].ToString() + @"\Matrix\" + Neo4jDirectoryName;
+                else return avaible.FirstOrDefault().Name + @"Matrix\" + Neo4jDirectoryName;
             }
         }
         public static void SetDefaultInstallParameters() 
@@ -152,6 +152,16 @@ namespace Installer
             shedulerserver,
         }
         #region DistroFile&DirectoriesNames
+        /// <summary>
+        /// Возвращает имя общего файла, в который будут устанавливаться дистрибутивы
+        /// </summary>
+        private static string MatrixDirectoryName 
+        {
+            get 
+            {
+                return @"Matrix\";
+            }
+        }
         /// <summary>
         /// Возвращает имя файла дистрибутива rabbitmq в resfiles
         /// Используется только, чтобы обратиться к дистрибутиву в resfiles
@@ -232,7 +242,7 @@ namespace Installer
         {
             get 
             {
-                List<string> shedulerServerDirectoryNames = new List<string>(Directory.EnumerateDirectories(ResfilesPath, "sheduler*", SearchOption.TopDirectoryOnly));
+                List<string> shedulerServerDirectoryNames = new List<string>(Directory.EnumerateDirectories(ResfilesPath, "scheduler*", SearchOption.TopDirectoryOnly));
                 return Path.GetFileName(shedulerServerDirectoryNames.FirstOrDefault());
             }
         }
@@ -647,19 +657,19 @@ namespace Installer
             switch(type) 
             {
                 case InstallPathType.webserver:
-                    webServerInstallPath = path + @"\" + WebServerDirectoryName;
+                    webServerInstallPath = path + @"\" + MatrixDirectoryName + WebServerDirectoryName;
                     break;
                 case InstallPathType.neo4j:
-                    neo4jInstallPath = path + @"\" + Neo4jDirectoryName;
+                    neo4jInstallPath = path + @"\" + MatrixDirectoryName + Neo4jDirectoryName;
                     break;
                 case InstallPathType.pollserver:
-                    pollServerInstallPath = path + @"\" + PollServerDirectoryName;
+                    pollServerInstallPath = path + @"\" + MatrixDirectoryName + PollServerDirectoryName;
                     break;
                 case InstallPathType.checkserver:
-                    checkServerInstallPath = path + @"\" + CheckServerDirectoryName;
+                    checkServerInstallPath = path + @"\" + MatrixDirectoryName + CheckServerDirectoryName;
                     break;
                 case InstallPathType.shedulerserver:
-                    shedulerServerInstallPath = path + @"\" + ShedulerServerDirectoryName;
+                    shedulerServerInstallPath = path + @"\" + MatrixDirectoryName + ShedulerServerDirectoryName;
                     break;
                 default: throw new NotImplementedException();
             }

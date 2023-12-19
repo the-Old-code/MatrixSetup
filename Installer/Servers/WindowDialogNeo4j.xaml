@@ -9,9 +9,9 @@
     <Grid >
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="235,5,0,0" Text="Neo4j" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Normal" FontSize="22"/>
         <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,39,0,0" Text="Путь установки" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtbox_path_Neo4j" HorizontalAlignment="Left" Margin="99,39,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="370"/>
+        <TextBox x:Name="txtbox_path_Neo4j" HorizontalAlignment="Left" Margin="99,39,0,0" Text="{Binding Neo4jInstallPath}" TextWrapping="Wrap" VerticalAlignment="Top" Width="339"/>
         <Button x:Name="btn_OK" Content="ОК"  Click="btn_OK_Click" Margin="202,73,184,0" Height="23" VerticalAlignment="Top"/>
-        <Button x:Name="btn_browsepath" Content="..." HorizontalAlignment="Left" Margin="474,39,0,0" VerticalAlignment="Top" Width="56" Click="btn_browsepath_Click" Height="18"/>
+        <Button x:Name="btn_browsepath" Content="Выбрать папку" HorizontalAlignment="Left" Margin="443,39,0,0" VerticalAlignment="Top" Width="87" Click="btn_browsepath_Click" Height="18"/>
         <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="20,109,0,0" FontSize="12" TextWrapping="Wrap" FontWeight="Normal" Width="530" Height="38" VerticalAlignment="Top"><Run Text="Если ничего не ввести в путь установки, "/><Run Language="ru-ru" Text="закрыть это окно или нажать "/><Run Text="&quot;"/><Run Language="ru-ru" Text="ОК"/><Run Text="&quot;"/><Run Language="ru-ru" Text=","/><Run Text=" то по умолчанию путь установки корневая папка несистемного диска."/></TextBlock>
     </Grid>
 </Window>

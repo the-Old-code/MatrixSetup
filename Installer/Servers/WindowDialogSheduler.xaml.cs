@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows;
-using System.IO;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -11,14 +11,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Installer
+namespace Installer.Servers
 {
     /// <summary>
-    /// Interaction logic for WindowDialogWeb.xaml
+    /// Логика взаимодействия для WindowDialogSheduler.xaml
     /// </summary>
-    public partial class WindowDialogWeb : Window
+    public partial class WindowDialogSheduler : Window
     {
-        public WindowDialogWeb()
+        public WindowDialogSheduler()
         {
             InitializeComponent();
             this.DataContext = App.ViewModel;
@@ -28,22 +28,14 @@ namespace Installer
         {
             try
             {
-                App.ViewModel.WebServerInstallPath = txtbx_web_installpath.Text;
+                App.ViewModel.ShedulerServerInstallPath = txtbx_sheduler_installpath.Text;
+                Close();
             }
             catch (DirectoryNotFoundException ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            
-            try 
-            {
-                App.ViewModel.WebServerUrl = txtbx_web_Url.Text;
-            }
-            catch (ArgumentException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            Close();
+            if (txtbx_sheduler_installpath.Text == "") Close();
         }
 
         private void btn_browsepath_Click(object sender, RoutedEventArgs e)
@@ -55,7 +47,7 @@ namespace Installer
 
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                txtbx_web_installpath.Text = folderDialog.SelectedPath;
+                txtbx_sheduler_installpath.Text = folderDialog.SelectedPath;
             }
         }
     }

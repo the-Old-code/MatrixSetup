@@ -21,6 +21,7 @@ namespace Installer
         public WindowDialogNeo4j()
         {
             InitializeComponent();
+            this.DataContext = App.ViewModel;
         }
 
         private void btn_browsepath_Click(object sender, RoutedEventArgs e)

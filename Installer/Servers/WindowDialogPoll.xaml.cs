@@ -22,20 +22,21 @@ namespace Installer.Servers
         public WindowDialogPoll()
         {
             InitializeComponent();
+            this.DataContext = App.ViewModel;
         }
 
         private void btn_OK_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                App.ViewModel.WebServerInstallPath = txtbx_pollinstallpath.Text;
+                App.ViewModel.PollServerInstallPath = txtbx_poll_installpath.Text;
                 Close();
             }
             catch (DirectoryNotFoundException ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            if (txtbx_pollinstallpath.Text == "") Close();
+            if (txtbx_poll_installpath.Text == "") Close();
         }
 
         private void btn_browsepath_Click(object sender, RoutedEventArgs e)
@@ -47,7 +48,7 @@ namespace Installer.Servers
 
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                txtbx_pollinstallpath.Text = folderDialog.SelectedPath;
+                txtbx_poll_installpath.Text = folderDialog.SelectedPath;
             }
         }
     }

@@ -8,6 +8,17 @@ namespace Installer
 {
     public class InstallPropertiesViewModel : INotifyPropertyChanged 
     {
+        public void UpdateProperties() 
+        {
+            OnPropertyChanged(nameof(WebServerConnectionString));
+            OnPropertyChanged(nameof(Neo4jInstallPath));
+            OnPropertyChanged(nameof(WebServerInstallPath));
+            OnPropertyChanged(nameof(Neo4jInstallPath));
+            OnPropertyChanged(nameof(PollServerInstallPath));
+            OnPropertyChanged(nameof(CheckServerInstallPath));
+            OnPropertyChanged(nameof(ShedulerServerInstallPath));
+            OnPropertyChanged(nameof(WebServerUrl));
+        }
         public struct ConnectionString 
         {
             public InstallScenario.ConnectionStringsType type;
